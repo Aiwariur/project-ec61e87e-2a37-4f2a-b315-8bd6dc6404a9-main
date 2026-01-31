@@ -40,7 +40,7 @@ const Admin = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/orders');
+      const response = await fetch('/api/orders');
       const data = await response.json();
       setOrders(data);
     } catch (error) {
@@ -52,7 +52,7 @@ const Admin = () => {
 
   const updateOrderStatus = async (orderId: number, newStatus: string) => {
     try {
-      await fetch(`http://localhost:3001/api/orders/${orderId}`, {
+      await fetch(`/api/orders/${orderId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),

@@ -34,7 +34,7 @@ const Catalog = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/products/categories');
+      const response = await fetch('/api/products/categories');
       const data = await response.json();
       setCategories(['Все', ...data]);
     } catch (error) {
@@ -45,7 +45,7 @@ const Catalog = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/products');
+      const response = await fetch('/api/products');
       const data = await response.json();
       setProducts(data);
     } catch (error) {

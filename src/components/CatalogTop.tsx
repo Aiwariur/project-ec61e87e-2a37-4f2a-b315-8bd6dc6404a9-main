@@ -34,7 +34,7 @@ const CatalogTop = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/products/categories');
+      const response = await fetch('/api/products/categories');
       const data = await response.json();
       console.log('Загружены категории:', data);
       setCategories(['Все', ...data]);
@@ -47,7 +47,7 @@ const CatalogTop = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/products');
+      const response = await fetch('/api/products');
       const data = await response.json();
       setProducts(data);
     } catch (error) {
