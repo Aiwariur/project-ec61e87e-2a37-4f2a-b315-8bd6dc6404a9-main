@@ -4,12 +4,12 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Устанавливаем зависимости для сборки нативных модулей
-RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 make g++ sqlite-dev
 
 # Копируем package files
 COPY package*.json ./
 
-# Устанавливаем зависимости
+# Устанавливаем ВСЕ зависимости (включая dev для сборки фронтенда)
 RUN npm ci
 
 # Копируем исходный код
@@ -23,14 +23,17 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Устанавливаем зависимости для нативных модулей
-RUN apk add --no-cache python3 make g++
+# Устанавливаем runtime зависимости для SQLite
+RUN apk add --no-cache sqlite-libs
 
 # Копируем package files
 COPY package*.json ./
 
-# Устанавливаем production зависимости (включая better-sqlite3)
-RUN npm ci --only=production
+# Устанавливаем только production зависимости
+# better-sqlite3 теперь в dependencies, поэтому установится
+RUN apk add --no-cache python3 make g++ sqlite-dev && \
+    npm ci --only=production && \
+    apk del python3 make g++ sqlite-dev
 
 # Копируем собранный фронтенд из builder stage
 COPY --from=builder /app/dist ./dist
