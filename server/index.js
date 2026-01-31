@@ -33,8 +33,8 @@ if (isProduction) {
   // Статические файлы фронтенда
   app.use(express.static(path.join(__dirname, '../dist')));
   
-  // Все остальные запросы отправляем на index.html (для React Router)
-  app.get('/*', (_req, res) => {
+  // Все остальные запросы (не API) отправляем на index.html для React Router
+  app.use((_req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
   });
 }
