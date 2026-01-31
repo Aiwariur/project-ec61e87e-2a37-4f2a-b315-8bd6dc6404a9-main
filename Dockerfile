@@ -3,6 +3,9 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Устанавливаем зависимости для сборки нативных модулей
+RUN apk add --no-cache python3 make g++
+
 # Копируем package files
 COPY package*.json ./
 
@@ -20,10 +23,13 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Устанавливаем зависимости для нативных модулей
+RUN apk add --no-cache python3 make g++
+
 # Копируем package files
 COPY package*.json ./
 
-# Устанавливаем только production зависимости
+# Устанавливаем production зависимости (включая better-sqlite3)
 RUN npm ci --only=production
 
 # Копируем собранный фронтенд из builder stage
