@@ -34,7 +34,7 @@ if (isProduction) {
   app.use(express.static(path.join(__dirname, '../dist')));
   
   // Все остальные запросы отправляем на index.html (для React Router)
-  app.get('*', (_req, res) => {
+  app.get('/*', (_req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
   });
 }
