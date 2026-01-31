@@ -81,6 +81,29 @@ export async function sendOrderNotification(orderData) {
 }
 
 /**
+ * Отправляет общее уведомление в Telegram
+ */
+export async function sendTelegramNotification(message) {
+  if (!bot || !chatId) {
+    console.warn('⚠️ Telegram бот не настроен, уведомление не отправлено');
+    return { success: false, error: 'Bot not configured' };
+  }
+  
+  try {
+    await bot.sendMessage(chatId, message, {
+      parse_mode: 'HTML',
+      disable_web_page_preview: true
+    });
+    
+    console.log('✅ Уведомление отправлено в Telegram');
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Ошибка отправки в Telegram:', error.message);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Отправляет уведомление об изменении статуса заказа
  */
 export async function sendStatusUpdateNotification(orderNumber, oldStatus, newStatus) {
