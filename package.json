@@ -20,7 +20,8 @@
     "db:export": "node export-products.js",
     "db:test": "node test-order-system.js",
     "setup": "npm run db:migrate && npm run db:import && echo ✅ База данных готова!",
-    "deploy:prepare": "npm run db:export && echo ✅ Проект готов к деплою!"
+    "deploy:check": "node check-deploy-ready.js",
+    "deploy:prepare": "npm run db:export && npm run build && npm run deploy:check"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
