@@ -1,0 +1,1724 @@
+[
+  {
+    "id": 65,
+    "slug": "сине-желтый-ара-ara-ararauna",
+    "name": "Сине-желтый ара (Ara ararauna)",
+    "price": 9500000,
+    "old_price": 38000000,
+    "in_stock": true,
+    "image": "/images/products/product-65.jpg",
+    "images": [
+      "/images/products/product-65.jpg",
+      "/images/products/product-65-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "380000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 66,
+    "slug": "ара-синелобый-малый-лат-ara-diopsittaca-nobilis-син-ara-nobilis-выкормыш",
+    "name": "Ара Синелобый малый (лат. ara  Diopsittaca nobilis, син. Ara nobilis) Выкормыш",
+    "price": 4750000,
+    "old_price": 19000000,
+    "in_stock": true,
+    "image": "/images/products/product-66.jpg",
+    "images": [
+      "/images/products/product-66.jpg",
+      "/images/products/product-66-1.jpg",
+      "/images/products/product-66-2.jpg",
+      "/images/products/product-66-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "190000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 67,
+    "slug": "амазон-белолобый-лат-amazona-albifrons-выкормыш",
+    "name": "Амазон Белолобый (лат. Amazona albifrons) Выкормыш",
+    "price": 3750000,
+    "old_price": 15000000,
+    "in_stock": true,
+    "image": "/images/products/product-67.jpg",
+    "images": [
+      "/images/products/product-67.jpg",
+      "/images/products/product-67-1.jpg",
+      "/images/products/product-67-2.jpg",
+      "/images/products/product-67-3.jpg",
+      "/images/products/product-67-4.jpg",
+      "/images/products/product-67-5.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "150000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 68,
+    "slug": "амазон-венесуэльский-лат-amazona-amazonica-выкормыш",
+    "name": "Амазон Венесуэльский  (лат. Amazona amazonica) Выкормыш",
+    "price": 3500000,
+    "old_price": 14000000,
+    "in_stock": true,
+    "image": "/images/products/product-68.jpg",
+    "images": [
+      "/images/products/product-68.jpg",
+      "/images/products/product-68-1.jpg",
+      "/images/products/product-68-2.jpg",
+      "/images/products/product-68-3.jpg",
+      "/images/products/product-68-4.jpg",
+      "/images/products/product-68-5.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "140000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 69,
+    "slug": "амазон-желтолобый-или-суринамский-амазон-лат-amazona-ochrocephala-выкормыш",
+    "name": "Амазон Желтолобый или суринамский амазон (лат. Amazona ochrocephala) Выкормыш",
+    "price": 4500000,
+    "old_price": 18000000,
+    "in_stock": true,
+    "image": "/images/products/product-69.jpg",
+    "images": [
+      "/images/products/product-69.jpg",
+      "/images/products/product-69-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "180000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 70,
+    "slug": "амазон-синелобый-лат-amazona-aestiva-выкормыш",
+    "name": "Амазон Синелобый  (лат. Amazona aestiva) Выкормыш",
+    "price": 4250000,
+    "old_price": 17000000,
+    "in_stock": true,
+    "image": "/images/products/product-70.jpg",
+    "images": [
+      "/images/products/product-70.jpg",
+      "/images/products/product-70-1.jpg",
+      "/images/products/product-70-2.jpg",
+      "/images/products/product-70-3.jpg",
+      "/images/products/product-70-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "170000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 71,
+    "slug": "краснохвостый-жако-или-африканский-серый-попугай-psittacus-erithacus-выкормыш",
+    "name": "Краснохвостый Жако или африканский серый попугай (Psittacus erithacus) Выкормыш",
+    "price": 4500000,
+    "old_price": 18000000,
+    "in_stock": true,
+    "image": "/images/products/product-71.jpg",
+    "images": [
+      "/images/products/product-71.jpg",
+      "/images/products/product-71-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "180000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 72,
+    "slug": "попугай-благородный-эклектус-самка-eclectus-roratus-выкормыш",
+    "name": "Попугай Благородный Эклектус Самка (Eclectus roratus) Выкормыш",
+    "price": 4000000,
+    "old_price": 16000000,
+    "in_stock": true,
+    "image": "/images/products/product-72.jpg",
+    "images": [
+      "/images/products/product-72.jpg",
+      "/images/products/product-72-1.jpg",
+      "/images/products/product-72-2.jpg",
+      "/images/products/product-72-3.jpg",
+      "/images/products/product-72-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "160000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 73,
+    "slug": "попугай-благородный-эклектус-самец-eclectus-roratus-выкормыш",
+    "name": "Попугай Благородный Эклектус Самец (Eclectus roratus) Выкормыш",
+    "price": 4750000,
+    "old_price": 19000000,
+    "in_stock": true,
+    "image": "/images/products/product-73.jpg",
+    "images": [
+      "/images/products/product-73.jpg",
+      "/images/products/product-73-1.jpg",
+      "/images/products/product-73-2.jpg",
+      "/images/products/product-73-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "190000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 74,
+    "slug": "розовый-какаду-или-гала-лат-eolophus-roseicapilla-выкормыш",
+    "name": "Розовый какаду или гала (лат. Eolophus roseicapilla) Выкормыш",
+    "price": 6250000,
+    "old_price": 25000000,
+    "in_stock": true,
+    "image": "/images/products/product-74.jpg",
+    "images": [
+      "/images/products/product-74.jpg",
+      "/images/products/product-74-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "250000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 75,
+    "slug": "большой-белохохлый-какаду-лат-cacatua-alba-выкормыш",
+    "name": "Большой белохохлый какаду (лат. Cacatua alba) Выкормыш",
+    "price": 10500000,
+    "old_price": 42000000,
+    "in_stock": true,
+    "image": "/images/products/product-75.jpg",
+    "images": [
+      "/images/products/product-75.jpg",
+      "/images/products/product-75-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "420000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 76,
+    "slug": "какаду-гоффина-лат-cacatua-goffiniana-выкормыш",
+    "name": "Какаду Гоффина (лат. Cacatua goffiniana) Выкормыш",
+    "price": 5750000,
+    "old_price": 23000000,
+    "in_stock": true,
+    "image": "/images/products/product-76.jpg",
+    "images": [
+      "/images/products/product-76.jpg",
+      "/images/products/product-76-1.jpg",
+      "/images/products/product-76-2.jpg",
+      "/images/products/product-76-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "230000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 77,
+    "slug": "желтохохлый-какаду-cacatua-sulphurea-выкормыш",
+    "name": "Желтохохлый какаду (Cacatua sulphurea) Выкормыш",
+    "price": 8000000,
+    "old_price": 32000000,
+    "in_stock": true,
+    "image": "/images/products/product-77.jpg",
+    "images": [
+      "/images/products/product-77.jpg",
+      "/images/products/product-77-1.jpg",
+      "/images/products/product-77-2.jpg",
+      "/images/products/product-77-3.jpg",
+      "/images/products/product-77-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "320000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 78,
+    "slug": "корелла-нимфа-или-нимфовый-попугайчик-лат-nymphicus-hollandicus",
+    "name": "Корелла - Нимфа или Нимфовый попугайчик (лат. Nymphicus hollandicus)",
+    "price": 250000,
+    "old_price": 1000000,
+    "in_stock": true,
+    "image": "/images/products/product-78.jpg",
+    "images": [
+      "/images/products/product-78.jpg",
+      "/images/products/product-78-1.jpg",
+      "/images/products/product-78-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "10000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 79,
+    "slug": "королевский-попугай-alisterus-scapularis-выкормыш",
+    "name": "Королевский попугай (Alisterus scapularis) Выкормыш",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-79.jpg",
+    "images": [
+      "/images/products/product-79.jpg",
+      "/images/products/product-79-1.jpg",
+      "/images/products/product-79-2.jpg",
+      "/images/products/product-79-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 80,
+    "slug": "сенегальский-длиннокрылый-попугай-лат-poicephalus-senegalus",
+    "name": "Сенегальский длиннокрылый попугай (лат. Poicephalus senegalus)",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-80.jpg",
+    "images": [
+      "/images/products/product-80.jpg",
+      "/images/products/product-80-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 81,
+    "slug": "аратинга-солнечная-лат-aratinga-solstitialis",
+    "name": "Аратинга солнечная (лат. Aratinga solstitialis)",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-81.jpg",
+    "images": [
+      "/images/products/product-81.jpg",
+      "/images/products/product-81-1.jpg",
+      "/images/products/product-81-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 82,
+    "slug": "радужный-лорикет-лат-trichoglossus-moluccanus",
+    "name": "Радужный лорикет (лат. Trichoglossus moluccanus)",
+    "price": 1625000,
+    "old_price": 6500000,
+    "in_stock": true,
+    "image": "/images/products/product-82.jpg",
+    "images": [
+      "/images/products/product-82.jpg",
+      "/images/products/product-82-1.jpg",
+      "/images/products/product-82-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "65000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 83,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-зеленый",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) зеленый",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-83.jpg",
+    "images": [
+      "/images/products/product-83.jpg",
+      "/images/products/product-83-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 84,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-окрас-зеленый-выкормыш",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) окрас зеленый Выкормыш",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-84.jpg",
+    "images": [
+      "/images/products/product-84.jpg",
+      "/images/products/product-84-1.jpg",
+      "/images/products/product-84-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 85,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-окрас-голубой-выкормыш",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) окрас голубой Выкормыш",
+    "price": 1000000,
+    "old_price": 4000000,
+    "in_stock": true,
+    "image": "/images/products/product-85.jpg",
+    "images": [
+      "/images/products/product-85.jpg",
+      "/images/products/product-85-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "40000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 86,
+    "slug": "ожереловый-попугай-крамера-или-индийский-кольчатый-попугай-лат-psittacula-krameri-окрас-желтый-выкормыш",
+    "name": "Ожереловый попугай Крамера или Индийский кольчатый попугай, (лат. Psittacula krameri) Окрас желтый Выкормыш",
+    "price": 1125000,
+    "old_price": 4500000,
+    "in_stock": true,
+    "image": "/images/products/product-86.jpg",
+    "images": [
+      "/images/products/product-86.jpg",
+      "/images/products/product-86-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "45000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 87,
+    "slug": "королевский-попугай-alisterus-scapularis-выкормыш-1",
+    "name": "Королевский попугай (Alisterus scapularis) Выкормыш",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-87.jpg",
+    "images": [
+      "/images/products/product-87.jpg",
+      "/images/products/product-87-1.jpg",
+      "/images/products/product-87-2.jpg",
+      "/images/products/product-87-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 88,
+    "slug": "пиррура-молине-лат-pyrrhura-molinae-окрас-корица-выкормыш",
+    "name": "Пиррура Молине (лат.Pyrrhura molinae) окрас корица Выкормыш",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-88.jpg",
+    "images": [
+      "/images/products/product-88.jpg",
+      "/images/products/product-88-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 89,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-окрас-зеленый-выкормыш-1",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) окрас зеленый Выкормыш",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-89.jpg",
+    "images": [
+      "/images/products/product-89.jpg",
+      "/images/products/product-89-1.jpg",
+      "/images/products/product-89-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 90,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-окрас-голубой-выкормыш-1",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) окрас голубой Выкормыш",
+    "price": 1000000,
+    "old_price": 4000000,
+    "in_stock": true,
+    "image": "/images/products/product-90.jpg",
+    "images": [
+      "/images/products/product-90.jpg",
+      "/images/products/product-90-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "40000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 91,
+    "slug": "ожереловый-попугай-крамера-или-индийский-кольчатый-попугай-лат-psittacula-krameri-окрас-желтый-выкормыш-1",
+    "name": "Ожереловый попугай Крамера или Индийский кольчатый попугай, (лат. Psittacula krameri) Окрас желтый Выкормыш",
+    "price": 1125000,
+    "old_price": 4500000,
+    "in_stock": true,
+    "image": "/images/products/product-91.jpg",
+    "images": [
+      "/images/products/product-91.jpg",
+      "/images/products/product-91-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "45000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 92,
+    "slug": "сине-желтый-ара-ara-ararauna-1",
+    "name": "Сине-желтый ара (Ara ararauna)",
+    "price": 9500000,
+    "old_price": 38000000,
+    "in_stock": true,
+    "image": "/images/products/product-92.jpg",
+    "images": [
+      "/images/products/product-92.jpg",
+      "/images/products/product-92-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "380000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 93,
+    "slug": "ара-синелобый-малый-лат-ara-diopsittaca-nobilis-син-ara-nobilis-выкормыш-1",
+    "name": "Ара Синелобый малый (лат. ara  Diopsittaca nobilis, син. Ara nobilis) Выкормыш",
+    "price": 4750000,
+    "old_price": 19000000,
+    "in_stock": true,
+    "image": "/images/products/product-93.jpg",
+    "images": [
+      "/images/products/product-93.jpg",
+      "/images/products/product-93-1.jpg",
+      "/images/products/product-93-2.jpg",
+      "/images/products/product-93-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "190000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 94,
+    "slug": "амазон-белолобый-лат-amazona-albifrons-выкормыш-1",
+    "name": "Амазон Белолобый (лат. Amazona albifrons) Выкормыш",
+    "price": 3750000,
+    "old_price": 15000000,
+    "in_stock": true,
+    "image": "/images/products/product-94.jpg",
+    "images": [
+      "/images/products/product-94.jpg",
+      "/images/products/product-94-1.jpg",
+      "/images/products/product-94-2.jpg",
+      "/images/products/product-94-3.jpg",
+      "/images/products/product-94-4.jpg",
+      "/images/products/product-94-5.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "150000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 95,
+    "slug": "амазон-венесуэльский-лат-amazona-amazonica-выкормыш-1",
+    "name": "Амазон Венесуэльский  (лат. Amazona amazonica) Выкормыш",
+    "price": 3500000,
+    "old_price": 14000000,
+    "in_stock": true,
+    "image": "/images/products/product-95.jpg",
+    "images": [
+      "/images/products/product-95.jpg",
+      "/images/products/product-95-1.jpg",
+      "/images/products/product-95-2.jpg",
+      "/images/products/product-95-3.jpg",
+      "/images/products/product-95-4.jpg",
+      "/images/products/product-95-5.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "140000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 96,
+    "slug": "амазон-желтолобый-или-суринамский-амазон-лат-amazona-ochrocephala-выкормыш-1",
+    "name": "Амазон Желтолобый или суринамский амазон (лат. Amazona ochrocephala) Выкормыш",
+    "price": 4500000,
+    "old_price": 18000000,
+    "in_stock": true,
+    "image": "/images/products/product-96.jpg",
+    "images": [
+      "/images/products/product-96.jpg",
+      "/images/products/product-96-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "180000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 97,
+    "slug": "амазон-синелобый-лат-amazona-aestiva-выкормыш-1",
+    "name": "Амазон Синелобый  (лат. Amazona aestiva) Выкормыш",
+    "price": 4250000,
+    "old_price": 17000000,
+    "in_stock": true,
+    "image": "/images/products/product-97.jpg",
+    "images": [
+      "/images/products/product-97.jpg",
+      "/images/products/product-97-1.jpg",
+      "/images/products/product-97-2.jpg",
+      "/images/products/product-97-3.jpg",
+      "/images/products/product-97-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "170000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 98,
+    "slug": "краснохвостый-жако-или-африканский-серый-попугай-psittacus-erithacus-выкормыш-1",
+    "name": "Краснохвостый Жако или африканский серый попугай (Psittacus erithacus) Выкормыш",
+    "price": 4500000,
+    "old_price": 18000000,
+    "in_stock": true,
+    "image": "/images/products/product-98.jpg",
+    "images": [
+      "/images/products/product-98.jpg",
+      "/images/products/product-98-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "180000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 99,
+    "slug": "попугай-благородный-эклектус-самка-eclectus-roratus-выкормыш-1",
+    "name": "Попугай Благородный Эклектус Самка (Eclectus roratus) Выкормыш",
+    "price": 4000000,
+    "old_price": 16000000,
+    "in_stock": true,
+    "image": "/images/products/product-99.jpg",
+    "images": [
+      "/images/products/product-99.jpg",
+      "/images/products/product-99-1.jpg",
+      "/images/products/product-99-2.jpg",
+      "/images/products/product-99-3.jpg",
+      "/images/products/product-99-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "160000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 100,
+    "slug": "попугай-благородный-эклектус-самец-eclectus-roratus-выкормыш-1",
+    "name": "Попугай Благородный Эклектус Самец (Eclectus roratus) Выкормыш",
+    "price": 4750000,
+    "old_price": 19000000,
+    "in_stock": true,
+    "image": "/images/products/product-100.jpg",
+    "images": [
+      "/images/products/product-100.jpg",
+      "/images/products/product-100-1.jpg",
+      "/images/products/product-100-2.jpg",
+      "/images/products/product-100-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "190000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 101,
+    "slug": "розовый-какаду-или-гала-лат-eolophus-roseicapilla-выкормыш-1",
+    "name": "Розовый какаду или гала (лат. Eolophus roseicapilla) Выкормыш",
+    "price": 6250000,
+    "old_price": 25000000,
+    "in_stock": true,
+    "image": "/images/products/product-101.jpg",
+    "images": [
+      "/images/products/product-101.jpg",
+      "/images/products/product-101-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "250000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 102,
+    "slug": "большой-белохохлый-какаду-лат-cacatua-alba-выкормыш-1",
+    "name": "Большой белохохлый какаду (лат. Cacatua alba) Выкормыш",
+    "price": 10500000,
+    "old_price": 42000000,
+    "in_stock": true,
+    "image": "/images/products/product-102.jpg",
+    "images": [
+      "/images/products/product-102.jpg",
+      "/images/products/product-102-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "420000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 103,
+    "slug": "какаду-гоффина-лат-cacatua-goffiniana-выкормыш-1",
+    "name": "Какаду Гоффина (лат. Cacatua goffiniana) Выкормыш",
+    "price": 5750000,
+    "old_price": 23000000,
+    "in_stock": true,
+    "image": "/images/products/product-103.jpg",
+    "images": [
+      "/images/products/product-103.jpg",
+      "/images/products/product-103-1.jpg",
+      "/images/products/product-103-2.jpg",
+      "/images/products/product-103-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "230000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 104,
+    "slug": "желтохохлый-какаду-cacatua-sulphurea-выкормыш-1",
+    "name": "Желтохохлый какаду (Cacatua sulphurea) Выкормыш",
+    "price": 8000000,
+    "old_price": 32000000,
+    "in_stock": true,
+    "image": "/images/products/product-104.jpg",
+    "images": [
+      "/images/products/product-104.jpg",
+      "/images/products/product-104-1.jpg",
+      "/images/products/product-104-2.jpg",
+      "/images/products/product-104-3.jpg",
+      "/images/products/product-104-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "320000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 105,
+    "slug": "аратинга-солнечная-лат-aratinga-solstitialis-1",
+    "name": "Аратинга солнечная (лат. Aratinga solstitialis)",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-105.jpg",
+    "images": [
+      "/images/products/product-105.jpg",
+      "/images/products/product-105-1.jpg",
+      "/images/products/product-105-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 106,
+    "slug": "радужный-лорикет-лат-trichoglossus-moluccanus-1",
+    "name": "Радужный лорикет (лат. Trichoglossus moluccanus)",
+    "price": 1625000,
+    "old_price": 6500000,
+    "in_stock": true,
+    "image": "/images/products/product-106.jpg",
+    "images": [
+      "/images/products/product-106.jpg",
+      "/images/products/product-106-1.jpg",
+      "/images/products/product-106-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "65000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 107,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-зеленый-1",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) зеленый",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-107.jpg",
+    "images": [
+      "/images/products/product-107.jpg",
+      "/images/products/product-107-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 108,
+    "slug": "корелла-нимфа-или-нимфовый-попугайчик-лат-nymphicus-hollandicus-1",
+    "name": "Корелла - Нимфа или Нимфовый попугайчик (лат. Nymphicus hollandicus)",
+    "price": 250000,
+    "old_price": 1000000,
+    "in_stock": true,
+    "image": "/images/products/product-108.jpg",
+    "images": [
+      "/images/products/product-108.jpg",
+      "/images/products/product-108-1.jpg",
+      "/images/products/product-108-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "10000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 109,
+    "slug": "королевский-попугай-alisterus-scapularis-выкормыш-2",
+    "name": "Королевский попугай (Alisterus scapularis) Выкормыш",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-109.jpg",
+    "images": [
+      "/images/products/product-109.jpg",
+      "/images/products/product-109-1.jpg",
+      "/images/products/product-109-2.jpg",
+      "/images/products/product-109-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 110,
+    "slug": "сенегальский-длиннокрылый-попугай-лат-poicephalus-senegalus-1",
+    "name": "Сенегальский длиннокрылый попугай (лат. Poicephalus senegalus)",
+    "price": 1875000,
+    "old_price": 7500000,
+    "in_stock": true,
+    "image": "/images/products/product-110.jpg",
+    "images": [
+      "/images/products/product-110.jpg",
+      "/images/products/product-110-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "75000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 111,
+    "slug": "пиррура-молине-лат-pyrrhura-molinae-окрас-корица-выкормыш-1",
+    "name": "Пиррура Молине (лат.Pyrrhura molinae) окрас корица Выкормыш",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-111.jpg",
+    "images": [
+      "/images/products/product-111.jpg",
+      "/images/products/product-111-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 112,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-окрас-зеленый-выкормыш-2",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) окрас зеленый Выкормыш",
+    "price": 875000,
+    "old_price": 3500000,
+    "in_stock": true,
+    "image": "/images/products/product-112.jpg",
+    "images": [
+      "/images/products/product-112.jpg",
+      "/images/products/product-112-1.jpg",
+      "/images/products/product-112-2.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "35000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 113,
+    "slug": "монах-квакер-калита-лат-myiopsitta-monachus-окрас-голубой-выкормыш-2",
+    "name": "Монах/квакер/калита(лат. Myiopsitta monachus) окрас голубой Выкормыш",
+    "price": 1000000,
+    "old_price": 4000000,
+    "in_stock": true,
+    "image": "/images/products/product-113.jpg",
+    "images": [
+      "/images/products/product-113.jpg",
+      "/images/products/product-113-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "40000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 114,
+    "slug": "ожереловый-попугай-крамера-или-индийский-кольчатый-попугай-лат-psittacula-krameri-окрас-желтый-выкормыш-2",
+    "name": "Ожереловый попугай Крамера или Индийский кольчатый попугай, (лат. Psittacula krameri) Окрас желтый Выкормыш",
+    "price": 1125000,
+    "old_price": 4500000,
+    "in_stock": true,
+    "image": "/images/products/product-114.jpg",
+    "images": [
+      "/images/products/product-114.jpg",
+      "/images/products/product-114-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "45000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 115,
+    "slug": "сине-желтый-ара-ara-ararauna-2",
+    "name": "Сине-желтый ара (Ara ararauna)",
+    "price": 9500000,
+    "old_price": 38000000,
+    "in_stock": true,
+    "image": "/images/products/product-115.jpg",
+    "images": [
+      "/images/products/product-115.jpg",
+      "/images/products/product-115-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "380000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 116,
+    "slug": "ара-синелобый-малый-лат-ara-diopsittaca-nobilis-син-ara-nobilis-выкормыш-2",
+    "name": "Ара Синелобый малый (лат. ara  Diopsittaca nobilis, син. Ara nobilis) Выкормыш",
+    "price": 4750000,
+    "old_price": 19000000,
+    "in_stock": true,
+    "image": "/images/products/product-116.jpg",
+    "images": [
+      "/images/products/product-116.jpg",
+      "/images/products/product-116-1.jpg",
+      "/images/products/product-116-2.jpg",
+      "/images/products/product-116-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "190000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 117,
+    "slug": "амазон-белолобый-лат-amazona-albifrons-выкормыш-2",
+    "name": "Амазон Белолобый (лат. Amazona albifrons) Выкормыш",
+    "price": 3750000,
+    "old_price": 15000000,
+    "in_stock": true,
+    "image": "/images/products/product-117.jpg",
+    "images": [
+      "/images/products/product-117.jpg",
+      "/images/products/product-117-1.jpg",
+      "/images/products/product-117-2.jpg",
+      "/images/products/product-117-3.jpg",
+      "/images/products/product-117-4.jpg",
+      "/images/products/product-117-5.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "150000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 118,
+    "slug": "амазон-венесуэльский-лат-amazona-amazonica-выкормыш-2",
+    "name": "Амазон Венесуэльский  (лат. Amazona amazonica) Выкормыш",
+    "price": 3500000,
+    "old_price": 14000000,
+    "in_stock": true,
+    "image": "/images/products/product-118.jpg",
+    "images": [
+      "/images/products/product-118.jpg",
+      "/images/products/product-118-1.jpg",
+      "/images/products/product-118-2.jpg",
+      "/images/products/product-118-3.jpg",
+      "/images/products/product-118-4.jpg",
+      "/images/products/product-118-5.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "140000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 119,
+    "slug": "амазон-желтолобый-или-суринамский-амазон-лат-amazona-ochrocephala-выкормыш-2",
+    "name": "Амазон Желтолобый или суринамский амазон (лат. Amazona ochrocephala) Выкормыш",
+    "price": 4500000,
+    "old_price": 18000000,
+    "in_stock": true,
+    "image": "/images/products/product-119.jpg",
+    "images": [
+      "/images/products/product-119.jpg",
+      "/images/products/product-119-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "180000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 120,
+    "slug": "амазон-синелобый-лат-amazona-aestiva-выкормыш-2",
+    "name": "Амазон Синелобый  (лат. Amazona aestiva) Выкормыш",
+    "price": 4250000,
+    "old_price": 17000000,
+    "in_stock": true,
+    "image": "/images/products/product-120.jpg",
+    "images": [
+      "/images/products/product-120.jpg",
+      "/images/products/product-120-1.jpg",
+      "/images/products/product-120-2.jpg",
+      "/images/products/product-120-3.jpg",
+      "/images/products/product-120-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "170000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 121,
+    "slug": "краснохвостый-жако-или-африканский-серый-попугай-psittacus-erithacus-выкормыш-2",
+    "name": "Краснохвостый Жако или африканский серый попугай (Psittacus erithacus) Выкормыш",
+    "price": 4500000,
+    "old_price": 18000000,
+    "in_stock": true,
+    "image": "/images/products/product-121.jpg",
+    "images": [
+      "/images/products/product-121.jpg",
+      "/images/products/product-121-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "180000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 122,
+    "slug": "попугай-благородный-эклектус-самка-eclectus-roratus-выкормыш-2",
+    "name": "Попугай Благородный Эклектус Самка (Eclectus roratus) Выкормыш",
+    "price": 4000000,
+    "old_price": 16000000,
+    "in_stock": true,
+    "image": "/images/products/product-122.jpg",
+    "images": [
+      "/images/products/product-122.jpg",
+      "/images/products/product-122-1.jpg",
+      "/images/products/product-122-2.jpg",
+      "/images/products/product-122-3.jpg",
+      "/images/products/product-122-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "160000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 123,
+    "slug": "попугай-благородный-эклектус-самец-eclectus-roratus-выкормыш-2",
+    "name": "Попугай Благородный Эклектус Самец (Eclectus roratus) Выкормыш",
+    "price": 4750000,
+    "old_price": 19000000,
+    "in_stock": true,
+    "image": "/images/products/product-123.jpg",
+    "images": [
+      "/images/products/product-123.jpg",
+      "/images/products/product-123-1.jpg",
+      "/images/products/product-123-2.jpg",
+      "/images/products/product-123-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "190000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 124,
+    "slug": "розовый-какаду-или-гала-лат-eolophus-roseicapilla-выкормыш-2",
+    "name": "Розовый какаду или гала (лат. Eolophus roseicapilla) Выкормыш",
+    "price": 6250000,
+    "old_price": 25000000,
+    "in_stock": true,
+    "image": "/images/products/product-124.jpg",
+    "images": [
+      "/images/products/product-124.jpg",
+      "/images/products/product-124-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "250000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 125,
+    "slug": "большой-белохохлый-какаду-лат-cacatua-alba-выкормыш-2",
+    "name": "Большой белохохлый какаду (лат. Cacatua alba) Выкормыш",
+    "price": 10500000,
+    "old_price": 42000000,
+    "in_stock": true,
+    "image": "/images/products/product-125.jpg",
+    "images": [
+      "/images/products/product-125.jpg",
+      "/images/products/product-125-1.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "420000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 126,
+    "slug": "какаду-гоффина-лат-cacatua-goffiniana-выкормыш-2",
+    "name": "Какаду Гоффина (лат. Cacatua goffiniana) Выкормыш",
+    "price": 5750000,
+    "old_price": 23000000,
+    "in_stock": true,
+    "image": "/images/products/product-126.jpg",
+    "images": [
+      "/images/products/product-126.jpg",
+      "/images/products/product-126-1.jpg",
+      "/images/products/product-126-2.jpg",
+      "/images/products/product-126-3.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "230000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  },
+  {
+    "id": 127,
+    "slug": "желтохохлый-какаду-cacatua-sulphurea-выкормыш-2",
+    "name": "Желтохохлый какаду (Cacatua sulphurea) Выкормыш",
+    "price": 8000000,
+    "old_price": 32000000,
+    "in_stock": true,
+    "image": "/images/products/product-127.jpg",
+    "images": [
+      "/images/products/product-127.jpg",
+      "/images/products/product-127-1.jpg",
+      "/images/products/product-127-2.jpg",
+      "/images/products/product-127-3.jpg",
+      "/images/products/product-127-4.jpg"
+    ],
+    "description": "Ручной выкормыш, полностью социализирован",
+    "specs": [
+      {
+        "key": "Оригинальная цена",
+        "value": "320000 ₽"
+      },
+      {
+        "key": "Скидка",
+        "value": "75%"
+      }
+    ],
+    "popular": false,
+    "created_at": 1769821908
+  }
+]
