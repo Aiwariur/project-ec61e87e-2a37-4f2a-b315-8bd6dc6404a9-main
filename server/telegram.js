@@ -12,8 +12,8 @@ let bot = null;
 // Инициализация бота с polling для интерактивности
 if (token) {
   try {
-    bot = new TelegramBot(token, { polling: true });
-    console.log('✅ Telegram бот инициализирован (интерактивный режим)');
+    bot = new TelegramBot(token, { polling: false });
+    console.log('✅ Telegram бот инициализирован (режим webhook/отправка)');
     
     // Обработка ошибок polling
     bot.on('polling_error', (error) => {

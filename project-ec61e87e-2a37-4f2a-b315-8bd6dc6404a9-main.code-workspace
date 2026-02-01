@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Optimal-Functionality/dist/public/images/products"
+		}
+	],
+	"settings": {
+		"typescript.autoClosingTags": false
+	}
+}
