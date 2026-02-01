@@ -26,7 +26,7 @@ const Catalog = () => {
   const [categories, setCategories] = useState<string[]>(['Все']);
   const [activeCategory, setActiveCategory] = useState('Все');
   const [loading, setLoading] = useState(true);
-  const [displayCount, setDisplayCount] = useState(12); // Показываем по 12 товаров
+  const [displayCount, setDisplayCount] = useState(100); // Показываем все товары
 
   useEffect(() => {
     fetchCategories();
@@ -113,6 +113,12 @@ const Catalog = () => {
         {loading ? (
           <div className="text-center py-12">
             <p className="text-sm sm:text-base text-muted-foreground">Загрузка товаров...</p>
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Товары не найдены. Всего товаров в базе: {products.length}
+            </p>
           </div>
         ) : (
           <>

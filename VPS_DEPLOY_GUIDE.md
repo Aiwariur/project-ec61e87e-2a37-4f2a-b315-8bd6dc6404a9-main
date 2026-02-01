@@ -5,69 +5,129 @@
 - **IP:** 144.31.212.184
 - **ОС:** Ubuntu 24.04 LTS
 - **Пользователь:** root
-- **Пароль:** eh5gRDe4yCsK
 - **Ресурсы:** 1 CPU, 2GB RAM, 80GB ROM
 
-## 🎯 Быстрый старт
+## 🎯 Первый деплой (один раз)
 
-### 1. Подключись к серверу
+### 1. Сделай репозиторий публичным
+
+Открой https://github.com/Aiwariur/project-ec61e87e-2a37-4f2a-b315-8bd6dc6404a9-main
+
+Settings → прокрути вниз → Danger Zone → Change visibility → Make public
+
+### 2. Подключись к серверу
 
 ```bash
 ssh root@144.31.212.184
-# Пароль: eh5gRDe4yCsK
 ```
 
-### 2. Загрузи проект на сервер
+### 3. Установи зависимости и проект
 
-**Вариант А: Через Git (рекомендуется)**
 ```bash
+# Обновление системы
+apt update && apt install -y curl git nginx
+
+# Установка Node.js 20
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt install -y nodejs
+
+# Установка PM2
+npm install -g pm2
+
+# Клонирование проекта
 cd /var/www
-git clone <твой-репозиторий> popugai-market
+git clone https://github.com/Aiwariur/project-ec61e87e-2a37-4f2a-b315-8bd6dc6404a9-main.git popugai-market
 cd popugai-market
-```
 
-**Вариант Б: Через SCP с локальной машины**
-```bash
-# На твоём компьютере (Windows)
-scp -r "C:\Users\Money\OneDrive\Desktop\project-ec61e87e-2a37-4f2a-b315-8bd6dc6404a9-main" root@144.31.212.184:/var/www/popugai-market
-```
-
-### 3. Запусти установку
-
-```bash
-# На сервере
-cd /var/www/popugai-market
-chmod +x deploy-to-vps.sh setup-project.sh
-bash deploy-to-vps.sh
-```
-
-### 4. Настрой .env
-
-```bash
-nano .env
-```
-
-Вставь свои данные:
-```env
-TELEGRAM_BOT_TOKEN=твой_токен
-TELEGRAM_CHAT_ID=твой_chat_id
+# Создание .env
+cat > .env << 'EOF'
+TELEGRAM_BOT_TOKEN=8372065466:AAH5ejcJHBXZnAPQ8ZXiG_eErAE8S_AwnnE
+TELEGRAM_CHAT_ID=7784231136
 NODE_ENV=production
 PORT=3001
 DATABASE_PATH=./parrot_shop.db
 ALLOWED_ORIGINS=http://144.31.212.184
+EOF
+
+# Установка зависимостей и сборка
+npm install
+npm run build
+
+# Инициализация БД
+node server/init-db.js
+
+# Запуск бэкенда
+pm2 start server/index.js --name popugai-market
+pm2 save
+pm2 startup systemd -u root --hp /root
 ```
 
-Сохрани: `Ctrl+O`, `Enter`, `Ctrl+X`
-
-### 5. Запусти проект
+### 4. Настрой Nginx
 
 ```bash
-bash setup-project.sh
+cat > /etc/nginx/sites-available/popugai-market << 'EOF'
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        root /var/www/popugai-market/dist;
+        try_files $uri $uri/ /index.html;
+        
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+        }
+    }
+
+    location /api {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    access_log /var/log/nginx/popugai-market-access.log;
+    error_log /var/log/nginx/popugai-market-error.log;
+}
+EOF
+
+ln -sf /etc/nginx/sites-available/popugai-market /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+nginx -t
+systemctl restart nginx
+systemctl enable nginx
 ```
 
-### 6. Готово! 🎉
+### 5. Готово! 🎉
 
-Открой в браузере: **http://144.31.212.184**
+Сайт работает: **http://144.31.212.184**
+
+---
+
+## 🔄 Обновление проекта (после изменений)
+
+Когда запушил новый код в GitHub:
+
+```bash
+ssh root@144.31.212.184
+cd /var/www/popugai-market
+git stash
+git pull
+npm run build
+pm2 restart popugai-market
+```
+
+Или одной командой с локальной машины:
+
+```bash
+ssh root@144.31.212.184 "cd /var/www/popugai-market && git stash && git pull && npm run build && pm2 restart popugai-market"
+```
 
 ---
 
@@ -101,30 +161,6 @@ cd /var/www/popugai-market
 sqlite3 parrot_shop.db        # Открыть БД
 .tables                       # Список таблиц
 .quit                         # Выход
-```
-
----
-
-## 🔄 Обновление проекта
-
-### Если используешь Git:
-
-```bash
-cd /var/www/popugai-market
-git pull
-npm install
-npm run build
-pm2 restart popugai-market
-```
-
-### Если загружаешь вручную:
-
-```bash
-# На локальной машине
-scp -r dist root@144.31.212.184:/var/www/popugai-market/
-
-# На сервере
-pm2 restart popugai-market
 ```
 
 ---
