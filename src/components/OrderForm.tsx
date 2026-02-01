@@ -40,7 +40,7 @@ const OrderForm = ({ children }: OrderFormProps) => {
       style: 'currency',
       currency: 'RUB',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(price / 100);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

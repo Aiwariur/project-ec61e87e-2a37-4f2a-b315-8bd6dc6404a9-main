@@ -75,7 +75,7 @@ const Admin = () => {
       style: 'currency',
       currency: 'RUB',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(price / 100);
   };
 
   const formatDate = (timestamp: number) => {

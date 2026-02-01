@@ -16,7 +16,7 @@ const Cart = () => {
       style: 'currency',
       currency: 'RUB',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(price / 100);
   };
 
   if (cart.length === 0) {

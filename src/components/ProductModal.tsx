@@ -46,7 +46,7 @@ const ProductModal = ({ product, open, onOpenChange }: ProductModalProps) => {
       style: 'currency',
       currency: 'RUB',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(price / 100);
   };
 
   const handleAddToCart = () => {

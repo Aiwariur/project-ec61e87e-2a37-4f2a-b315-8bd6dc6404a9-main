@@ -14,7 +14,7 @@ const FloatingCart = () => {
       style: 'currency',
       currency: 'RUB',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(price / 100);
   };
 
   // Не показываем кнопку если корзина пуста
