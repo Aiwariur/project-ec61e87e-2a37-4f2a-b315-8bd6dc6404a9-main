@@ -37,7 +37,7 @@ COPY --from=frontend-builder /app/dist ./dist
 COPY server ./server
 
 # Копируем скрипты для работы с БД
-COPY migrate-db.js import-products.js export-products.js ./
+COPY migrate-db.js import-products.js export-products.js force-init-db.js ./
 
 # КРИТИЧНО: Копируем products.json (без звездочки чтобы сборка упала если файла нет)
 COPY products.json ./products.json
@@ -51,12 +51,6 @@ RUN chmod +x docker-entrypoint.sh
 
 # Создаем директорию для базы данных
 RUN mkdir -p /app/data
-
-# ВАЖНО: Инициализируем БД сразу при сборке образа
-RUN echo "🔧 Инициализация базы данных при сборке..." && \
-    NODE_ENV=production node server/init-db.js && \
-    echo "✅ База данных инициализирована" && \
-    ls -lh /app/data/parrot_shop.db
 
 # Проверяем что критичные файлы на месте
 RUN echo "🔍 Проверка файлов в образе..." && \
