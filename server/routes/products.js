@@ -26,9 +26,15 @@ router.get('/', (req, res) => {
     
     // Парсим JSON поля и преобразуем snake_case в camelCase
     const parsedProducts = products.map(p => {
+      // Формируем массив изображений: основное + дополнительные
+      const additionalImages = p.images ? JSON.parse(p.images) : [];
+      const allImages = additionalImages.length > 0 
+        ? [p.image, ...additionalImages] 
+        : [p.image];
+      
       const parsed = {
         ...p,
-        images: p.images ? JSON.parse(p.images) : [p.image],
+        images: allImages,
         specs: p.specs ? JSON.parse(p.specs) : [],
         oldPrice: p.old_price,
         inStock: p.in_stock,
@@ -56,9 +62,15 @@ router.get('/:id', (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
     
+    // Формируем массив изображений: основное + дополнительные
+    const additionalImages = product.images ? JSON.parse(product.images) : [];
+    const allImages = additionalImages.length > 0 
+      ? [product.image, ...additionalImages] 
+      : [product.image];
+    
     const parsed = {
       ...product,
-      images: product.images ? JSON.parse(product.images) : [product.image],
+      images: allImages,
       specs: product.specs ? JSON.parse(product.specs) : [],
       oldPrice: product.old_price,
       inStock: product.in_stock,

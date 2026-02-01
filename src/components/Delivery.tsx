@@ -30,9 +30,9 @@ const deliveryOptions = [
 
 const Delivery = () => {
   return (
-    <section id="delivery" className="py-12 sm:py-16 lg:py-24 bg-background">
+    <section id="delivery" className="py-8 sm:py-10 lg:py-12 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12">
+        <div className="text-center mb-6 sm:mb-8">
           <span className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wide">
             Варианты доставки
           </span>
@@ -60,7 +60,7 @@ const Delivery = () => {
           ))}
         </div>
 
-        <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-primary/5 rounded-2xl border border-primary/20">
+        <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-primary/5 rounded-2xl border border-primary/20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <div>
               <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base">

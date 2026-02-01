@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Dialog,
   DialogContent,
@@ -21,6 +23,9 @@ const orderSchema = z.object({
   email: z.string().trim().email('Введите корректный email').max(255, 'Email слишком длинный'),
   address: z.string().trim().min(10, 'Введите полный адрес').max(500, 'Адрес слишком длинный'),
   comment: z.string().trim().max(1000, 'Комментарий слишком длинный').optional(),
+  payment_method: z.enum(['sbp', 'card', 'manager'], {
+    required_error: 'Выберите способ оплаты',
+  }),
 });
 
 interface OrderFormProps {
@@ -28,9 +33,11 @@ interface OrderFormProps {
 }
 
 const OrderForm = ({ children }: OrderFormProps) => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [paymentMethod, setPaymentMethod] = useState<string>('sbp');
   const cart = useStore((state) => state.cart);
   const getTotalPrice = useStore((state) => state.getTotalPrice);
   const clearCart = useStore((state) => state.clearCart);
@@ -54,6 +61,7 @@ const OrderForm = ({ children }: OrderFormProps) => {
       email: formData.get('email') as string,
       address: formData.get('address') as string,
       comment: formData.get('comment') as string,
+      payment_method: paymentMethod,
     };
 
     const result = orderSchema.safeParse(data);
@@ -81,6 +89,7 @@ const OrderForm = ({ children }: OrderFormProps) => {
           delivery_method: 'Доставка',
           address: data.address,
           comment: data.comment,
+          payment_method: data.payment_method,
           items: cart.map(item => ({
             id: item.id,
             quantity: item.quantity,
@@ -94,9 +103,14 @@ const OrderForm = ({ children }: OrderFormProps) => {
         throw new Error('Failed to create order');
       }
 
-      toast.success('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+      const result = await response.json();
+      const orderNumber = result.order_number || result.id || Date.now();
+
       clearCart();
       setOpen(false);
+      
+      // Редирект на страницу благодарности
+      navigate(`/thank-you?order=${orderNumber}`);
     } catch (error) {
       toast.error('Ошибка при отправке заказа. Попробуйте еще раз.');
       console.error('Order submission error:', error);
@@ -212,6 +226,36 @@ const OrderForm = ({ children }: OrderFormProps) => {
             />
             {errors.comment && (
               <p className="text-xs text-destructive">{errors.comment}</p>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            <Label className="text-xs sm:text-sm">Способ оплаты *</Label>
+            <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="sbp" id="sbp" />
+                <Label htmlFor="sbp" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">СБП (Система быстрых платежей)</div>
+                  <div className="text-xs text-muted-foreground">Мгновенный перевод по номеру телефона</div>
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="card" id="card" />
+                <Label htmlFor="card" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">Оплата картой</div>
+                  <div className="text-xs text-muted-foreground">Visa, MasterCard, МИР</div>
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="manager" id="manager" />
+                <Label htmlFor="manager" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">Обсудить с менеджером</div>
+                  <div className="text-xs text-muted-foreground">Мы свяжемся и обсудим удобный способ оплаты</div>
+                </Label>
+              </div>
+            </RadioGroup>
+            {errors.payment_method && (
+              <p className="text-xs text-destructive">{errors.payment_method}</p>
             )}
           </div>
 

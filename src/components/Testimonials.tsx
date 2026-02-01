@@ -74,7 +74,8 @@ const Testimonials = () => {
 
   // Дублируем отзывы для бесконечной прокрутки
   const row1 = [...testimonials.slice(0, 4), ...testimonials.slice(0, 4)];
-  const row2 = [...testimonials.slice(4, 8), ...testimonials.slice(4, 8)];
+  // Для второй строки разворачиваем массив, чтобы движение было в другую сторону
+  const row2 = [...testimonials.slice(4, 8).reverse(), ...testimonials.slice(4, 8).reverse()];
 
   useEffect(() => {
     const scroll1 = scrollRef1.current;
@@ -82,13 +83,12 @@ const Testimonials = () => {
 
     if (!scroll1 || !scroll2) return;
 
-    let animationId1: number;
-    let animationId2: number;
+    let animationId: number;
     let position1 = 0;
     let position2 = 0;
 
     const animate = () => {
-      // Первая строка движется вправо
+      // Первая строка движется влево
       position1 += 0.5;
       if (scroll1) {
         const maxScroll = scroll1.scrollWidth / 2;
@@ -98,24 +98,23 @@ const Testimonials = () => {
         scroll1.style.transform = `translateX(-${position1}px)`;
       }
 
-      // Вторая строка движется влево
-      position2 += 0.5;
+      // Вторая строка движется вправо (обратное направление)
+      position2 -= 0.5;
       if (scroll2) {
         const maxScroll = scroll2.scrollWidth / 2;
-        if (position2 >= maxScroll) {
+        if (position2 <= -maxScroll) {
           position2 = 0;
         }
-        scroll2.style.transform = `translateX(-${position2}px)`;
+        scroll2.style.transform = `translateX(${position2}px)`;
       }
 
-      animationId1 = requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
-    animationId1 = requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animationId1);
-      if (animationId2) cancelAnimationFrame(animationId2);
+      cancelAnimationFrame(animationId);
     };
   }, []);
 
@@ -149,8 +148,8 @@ const Testimonials = () => {
   );
 
   return (
-    <section className="py-16 bg-muted/30 overflow-hidden">
-      <div className="container mx-auto px-4 mb-12">
+    <section className="py-10 bg-muted/30 overflow-hidden">
+      <div className="container mx-auto px-4 mb-8">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Отзывы наших клиентов
@@ -179,7 +178,7 @@ const Testimonials = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-12 text-center">
+      <div className="container mx-auto px-4 mt-8 text-center">
         <p className="text-muted-foreground">
           Средняя оценка: <span className="text-2xl font-bold text-primary">4.9</span> из 5 
           <span className="mx-2">•</span>

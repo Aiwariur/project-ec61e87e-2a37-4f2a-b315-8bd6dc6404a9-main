@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
 // Создать заказ
 router.post('/', (req, res) => {
   try {
-    const { customer_name, customer_phone, customer_email, delivery_method, address, comment, items, total } = req.body;
+    const { customer_name, customer_phone, customer_email, delivery_method, address, comment, payment_method, items, total } = req.body;
     
     // Валидация
     if (!customer_name || !customer_phone || !items || items.length === 0 || !total) {
@@ -87,13 +87,14 @@ router.post('/', (req, res) => {
       // 2. Создаем заказ
       const order_number = `ORD-${Date.now()}`;
       const orderResult = db.prepare(`
-        INSERT INTO orders (order_number, customer_id, delivery_method, comment, total, status, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO orders (order_number, customer_id, delivery_method, comment, payment_method, total, status, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `).run(
         order_number,
         customerId,
         delivery_method || 'Доставка',
         comment || null,
+        payment_method || 'Не указан',
         total,
         'new',
         now
@@ -129,6 +130,7 @@ router.post('/', (req, res) => {
       delivery_method,
       address,
       comment,
+      payment_method,
       items,
       total
     }).catch(err => {

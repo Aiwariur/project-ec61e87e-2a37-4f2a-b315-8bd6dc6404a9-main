@@ -17,7 +17,7 @@ const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
-        <div className="py-16 sm:py-24 lg:py-32 max-w-2xl mx-auto text-center lg:text-left lg:mx-0">
+        <div className="py-12 sm:py-16 lg:py-20 max-w-2xl mx-auto text-center lg:text-left lg:mx-0">
           <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium bg-primary text-primary-foreground rounded-full">
             🦜 Лучшие попугаи России
           </span>

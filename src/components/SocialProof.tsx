@@ -29,9 +29,9 @@ const SocialProof = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-8 sm:py-10 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Нам доверяют тысячи любителей попугаев
           </h2>
@@ -66,7 +66,7 @@ const SocialProof = () => {
           })}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/5 rounded-full border border-primary/20">
             <ShieldCheck className="w-5 h-5 text-primary" />
             <span className="text-sm font-medium">

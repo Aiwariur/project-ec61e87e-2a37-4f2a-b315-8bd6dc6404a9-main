@@ -36,9 +36,9 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="about" className="py-12 sm:py-16 lg:py-24 bg-card">
+    <section id="about" className="py-8 sm:py-10 lg:py-12 bg-card">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12">
+        <div className="text-center mb-6 sm:mb-8">
           <span className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wide">
             Почему мы
           </span>

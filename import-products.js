@@ -82,11 +82,8 @@ function findProductImages(productId) {
   const publicDir = './public/images/products';
   const allImages = [];
   
-  // Основное изображение
-  const mainImage = `/images/products/product-${productId}.jpg`;
-  allImages.push(mainImage);
-  
-  // Ищем дополнительные изображения (product-100-1.jpg, product-100-2.jpg и т.д.)
+  // Основное изображение уже хранится в поле image, поэтому в массив images
+  // добавляем только дополнительные изображения (product-100-1.jpg, product-100-2.jpg и т.д.)
   let index = 1;
   while (true) {
     const additionalImage = path.join(publicDir, `product-${productId}-${index}.jpg`);

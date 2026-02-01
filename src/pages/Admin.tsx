@@ -22,6 +22,7 @@ interface Order {
   customer_email?: string;
   customer_address?: string;
   delivery_method?: string;
+  payment_method?: string;
   comment?: string;
   total: number;
   status: string;
@@ -80,6 +81,15 @@ const Admin = () => {
 
   const formatDate = (timestamp: number) => {
     return new Date(timestamp * 1000).toLocaleString('ru-RU');
+  };
+
+  const getPaymentMethodName = (method?: string) => {
+    const names: Record<string, string> = {
+      'sbp': 'СБП (Система быстрых платежей)',
+      'card': 'Оплата картой',
+      'manager': 'Обсудить с менеджером',
+    };
+    return method ? (names[method] || method) : 'Не указан';
   };
 
   const getStatusColor = (status: string) => {
@@ -151,19 +161,13 @@ const Admin = () => {
                       <p className="font-medium">{selectedOrder.customer_email}</p>
                     </div>
                   )}
-                  {selectedOrder.city && (
-                    <div>
-                      <p className="text-muted-foreground">Город</p>
-                      <p className="font-medium">{selectedOrder.city}</p>
-                    </div>
-                  )}
                 </div>
               </div>
 
               {/* Delivery Info */}
-              {(selectedOrder.delivery_method || selectedOrder.customer_address) && (
+              {(selectedOrder.delivery_method || selectedOrder.customer_address || selectedOrder.payment_method) && (
                 <div>
-                  <h3 className="font-semibold mb-3">Доставка</h3>
+                  <h3 className="font-semibold mb-3">Доставка и оплата</h3>
                   <div className="space-y-2 text-sm">
                     {selectedOrder.delivery_method && (
                       <div>
@@ -175,6 +179,12 @@ const Admin = () => {
                       <div>
                         <p className="text-muted-foreground">Адрес</p>
                         <p className="font-medium">{selectedOrder.customer_address}</p>
+                      </div>
+                    )}
+                    {selectedOrder.payment_method && (
+                      <div>
+                        <p className="text-muted-foreground">Способ оплаты</p>
+                        <p className="font-medium">{getPaymentMethodName(selectedOrder.payment_method)}</p>
                       </div>
                     )}
                   </div>

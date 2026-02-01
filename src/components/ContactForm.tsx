@@ -59,7 +59,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact-form" className="py-16 bg-muted/30">
+    <section id="contact-form" className="py-10 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
