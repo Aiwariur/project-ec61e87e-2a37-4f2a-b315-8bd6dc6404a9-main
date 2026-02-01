@@ -24,11 +24,13 @@ router.get('/', (req, res) => {
   try {
     const products = db.prepare('SELECT * FROM products ORDER BY id DESC').all();
     
-    // Парсим JSON поля
+    // Парсим JSON поля и преобразуем snake_case в camelCase
     const parsedProducts = products.map(p => ({
       ...p,
       images: p.images ? JSON.parse(p.images) : [p.image],
       specs: p.specs ? JSON.parse(p.specs) : [],
+      oldPrice: p.old_price,
+      inStock: p.in_stock,
     }));
     
     res.json(parsedProducts);
@@ -50,6 +52,8 @@ router.get('/:id', (req, res) => {
       ...product,
       images: product.images ? JSON.parse(product.images) : [product.image],
       specs: product.specs ? JSON.parse(product.specs) : [],
+      oldPrice: product.old_price,
+      inStock: product.in_stock,
     };
     
     res.json(parsed);
