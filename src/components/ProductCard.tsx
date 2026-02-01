@@ -6,7 +6,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Product, useStore } from '@/lib/store';
 import { toast } from 'sonner';
 import ProductModal from './ProductModal';
-import OptimizedImage from './OptimizedImage';
 
 interface ProductCardProps {
   product: Product;
@@ -42,8 +41,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
         className="group overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer"
         onClick={handleCardClick}
       >
-        <div className="relative aspect-square overflow-hidden bg-muted">
-          <OptimizedImage
+        <div className="relative aspect-square overflow-hidden">
+          <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"

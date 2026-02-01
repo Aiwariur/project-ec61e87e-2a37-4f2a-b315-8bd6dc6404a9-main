@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import compression from 'compression';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import productsRouter from './routes/products.js';
@@ -14,7 +13,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // Middleware
 app.use(cors());
-app.use(compression()); // Сжатие ответов для ускорения загрузки
 app.use(express.json());
 
 // Статические файлы (изображения товаров)

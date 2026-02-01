@@ -37,7 +37,7 @@ COPY --from=frontend-builder /app/dist ./dist
 COPY server ./server
 
 # Копируем скрипты для работы с БД
-COPY migrate-db.js import-products.js export-products.js force-init-db.js ./
+COPY migrate-db.js import-products.js export-products.js ./
 
 # КРИТИЧНО: Копируем products.json (без звездочки чтобы сборка упала если файла нет)
 COPY products.json ./products.json

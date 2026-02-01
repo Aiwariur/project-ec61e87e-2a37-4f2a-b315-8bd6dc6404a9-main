@@ -26,7 +26,6 @@ const Catalog = () => {
   const [categories, setCategories] = useState<string[]>(['Все']);
   const [activeCategory, setActiveCategory] = useState('Все');
   const [loading, setLoading] = useState(true);
-  const [displayCount, setDisplayCount] = useState(100); // Показываем все товары
 
   useEffect(() => {
     fetchCategories();
@@ -59,18 +58,6 @@ const Catalog = () => {
   const filteredProducts = activeCategory === 'Все'
     ? products
     : products.filter((product) => product.category === activeCategory);
-
-  const displayedProducts = filteredProducts.slice(0, displayCount);
-  const hasMore = displayCount < filteredProducts.length;
-
-  const loadMore = () => {
-    setDisplayCount(prev => prev + 12);
-  };
-
-  // Сбрасываем счётчик при смене категории
-  useEffect(() => {
-    setDisplayCount(12);
-  }, [activeCategory]);
 
   return (
     <section id="catalog" className="py-8 sm:py-10 lg:py-12 bg-background">
@@ -114,33 +101,12 @@ const Catalog = () => {
           <div className="text-center py-12">
             <p className="text-sm sm:text-base text-muted-foreground">Загрузка товаров...</p>
           </div>
-        ) : filteredProducts.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-sm sm:text-base text-muted-foreground">
-              Товары не найдены. Всего товаров в базе: {products.length}
-            </p>
-          </div>
         ) : (
-          <>
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-              {displayedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-            
-            {/* Кнопка "Показать ещё" */}
-            {hasMore && (
-              <div className="text-center mt-8">
-                <Button
-                  onClick={loadMore}
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full shadow-lg"
-                >
-                  Показать ещё ({filteredProducts.length - displayCount} товаров)
-                </Button>
-              </div>
-            )}
-          </>
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         )}
       </div>
     </section>

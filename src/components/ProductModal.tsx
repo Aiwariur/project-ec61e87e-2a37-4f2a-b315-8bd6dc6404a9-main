@@ -108,7 +108,6 @@ const ProductModal = ({ product, open, onOpenChange }: ProductModalProps) => {
             <img
               src={productImages[currentImageIndex]}
               alt={`${product.name} - фото ${currentImageIndex + 1}`}
-              loading="lazy"
               className="w-full h-full object-cover"
             />
             
