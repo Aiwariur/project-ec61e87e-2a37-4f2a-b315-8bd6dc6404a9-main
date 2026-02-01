@@ -25,13 +25,21 @@ router.get('/', (req, res) => {
     const products = db.prepare('SELECT * FROM products ORDER BY id DESC').all();
     
     // Парсим JSON поля и преобразуем snake_case в camelCase
-    const parsedProducts = products.map(p => ({
-      ...p,
-      images: p.images ? JSON.parse(p.images) : [p.image],
-      specs: p.specs ? JSON.parse(p.specs) : [],
-      oldPrice: p.old_price,
-      inStock: p.in_stock,
-    }));
+    const parsedProducts = products.map(p => {
+      const parsed = {
+        ...p,
+        images: p.images ? JSON.parse(p.images) : [p.image],
+        specs: p.specs ? JSON.parse(p.specs) : [],
+        oldPrice: p.old_price,
+        inStock: p.in_stock,
+      };
+      
+      // Удаляем snake_case поля чтобы не было дублирования
+      delete parsed.old_price;
+      delete parsed.in_stock;
+      
+      return parsed;
+    });
     
     res.json(parsedProducts);
   } catch (error) {
@@ -55,6 +63,10 @@ router.get('/:id', (req, res) => {
       oldPrice: product.old_price,
       inStock: product.in_stock,
     };
+    
+    // Удаляем snake_case поля
+    delete parsed.old_price;
+    delete parsed.in_stock;
     
     res.json(parsed);
   } catch (error) {
