@@ -10,7 +10,6 @@ import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import FloatingCart from '@/components/FloatingCart';
 import FloatingContacts from '@/components/FloatingContacts';
-import TelegramButton from '@/components/TelegramButton';
 
 const Index = () => {
   return (
@@ -29,7 +28,6 @@ const Index = () => {
       <Footer />
       <FloatingCart />
       <FloatingContacts />
-      <TelegramButton />
     </div>
   );
 };

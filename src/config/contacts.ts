@@ -4,7 +4,7 @@ export const CONTACTS = {
   whatsapp: '79001234567',
   
   // Telegram username (без @)
-  telegram: 'parrotmarket',
+  telegram: 'kakadu_shop',
   
   // Телефон для отображения
   phone: '8 (800) 123-45-67',
