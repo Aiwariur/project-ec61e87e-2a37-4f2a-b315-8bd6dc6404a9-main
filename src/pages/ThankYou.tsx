@@ -28,9 +28,10 @@ const ThankYou = () => {
 
   const handleConfirmClick = () => {
     if (telegramLink) {
+      // Открываем Telegram в новой вкладке
       window.open(telegramLink, '_blank', 'noopener,noreferrer');
     }
-    navigate(confirmLink);
+    // НЕ делаем редирект на confirm-order, просто открываем Telegram
   };
 
   return (
@@ -78,16 +79,28 @@ const ThankYou = () => {
 
           {/* Кнопка подтверждения */}
           <div className="space-y-3">
-            <Button
-              size="lg"
-              className="w-full md:w-auto px-8 py-6 text-lg font-semibold"
-              onClick={handleConfirmClick}
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Подтвердить заказ
-            </Button>
+            {telegramLink ? (
+              <a
+                href={telegramLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-full md:w-auto px-8 py-6 text-lg font-semibold bg-[#0088cc] hover:bg-[#006699] text-white rounded-lg transition-colors"
+              >
+                <MessageCircle className="w-6 h-6 mr-3" />
+                Подтвердить в Telegram
+              </a>
+            ) : (
+              <Button
+                size="lg"
+                className="w-full md:w-auto px-8 py-6 text-lg font-semibold"
+                onClick={handleConfirmClick}
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Подтвердить заказ
+              </Button>
+            )}
             <p className="text-xs text-muted-foreground">
-              Нажмите кнопку, чтобы подтвердить ваш заказ
+              Нажмите кнопку, чтобы открыть Telegram и подтвердить заказ
             </p>
           </div>
 

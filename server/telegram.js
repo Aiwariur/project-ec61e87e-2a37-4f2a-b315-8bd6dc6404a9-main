@@ -198,6 +198,21 @@ function registerHandlers() {
       return;
     }
 
+    // СРАЗУ сохраняем Telegram данные клиента при входе в бота
+    // Это критически важно - данные должны быть записаны независимо от того,
+    // подтвердит клиент заказ или нет
+    const telegramUsername = msg.from.username || null;
+    const telegramUserId = String(msg.from.id || '');
+    
+    db.prepare(`
+      UPDATE orders
+      SET telegram_username = ?,
+          telegram_user_id = ?
+      WHERE id = ?
+    `).run(telegramUsername, telegramUserId, order.id);
+    
+    console.log(`📱 Telegram данные сохранены для заказа ${orderNumber}: @${telegramUsername}, ID: ${telegramUserId}`);
+
     const items = db.prepare(`
       SELECT product_name, quantity, price
       FROM order_items
@@ -217,19 +232,37 @@ function registerHandlers() {
     });
 
     message += `\n💰 <b>ИТОГО: ${totalPrice}₽</b>\n`;
-    message += `\nСтатус: <b>${order.status}</b>`;
-
-    // Кнопки нужны, чтобы подтвердить заказ прямо в чате без ручного ввода данных.
-    const keyboard = {
-      inline_keyboard: [
-        [
-          { text: '✅ Подтвердить', callback_data: `confirm:${order.order_number}` },
-          { text: '❌ Отменить', callback_data: `cancel:${order.order_number}` }
-        ]
-      ]
+    
+    // Показываем текущий статус
+    const statusNames = {
+      'new': '🆕 Новый',
+      'confirmed': '✅ Подтвержден',
+      'shipped': '📦 Отправлен',
+      'delivered': '🎉 Доставлен',
+      'cancelled': '❌ Отменен'
     };
+    message += `\nСтатус: <b>${statusNames[order.status] || order.status}</b>`;
 
-    await bot.sendMessage(msg.chat.id, message, { parse_mode: 'HTML', reply_markup: keyboard });
+    // Кнопки показываем только если заказ еще не подтвержден и не отменен
+    if (order.status === 'new') {
+      const keyboard = {
+        inline_keyboard: [
+          [
+            { text: '✅ Подтвердить заказ', callback_data: `confirm:${order.order_number}` },
+            { text: '❌ Отменить', callback_data: `cancel:${order.order_number}` }
+          ]
+        ]
+      };
+      await bot.sendMessage(msg.chat.id, message, { parse_mode: 'HTML', reply_markup: keyboard });
+    } else if (order.status === 'confirmed') {
+      message += `\n\n✅ Ваш заказ уже подтвержден! Мы скоро свяжемся с вами.`;
+      await bot.sendMessage(msg.chat.id, message, { parse_mode: 'HTML' });
+    } else if (order.status === 'cancelled') {
+      message += `\n\n❌ Этот заказ был отменен.`;
+      await bot.sendMessage(msg.chat.id, message, { parse_mode: 'HTML' });
+    } else {
+      await bot.sendMessage(msg.chat.id, message, { parse_mode: 'HTML' });
+    }
   });
 
   bot.on('callback_query', async (query) => {
