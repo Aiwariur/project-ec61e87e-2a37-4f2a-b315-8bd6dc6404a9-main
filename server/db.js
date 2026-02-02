@@ -5,8 +5,7 @@ import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Используем DATABASE_PATH из .env или дефолтный путь
-const isProduction = process.env.NODE_ENV === 'production';
+// Приоритет: DATABASE_PATH из .env > дефолтный путь
 let dbPath;
 
 if (process.env.DATABASE_PATH) {
@@ -14,10 +13,13 @@ if (process.env.DATABASE_PATH) {
   dbPath = path.isAbsolute(process.env.DATABASE_PATH) 
     ? process.env.DATABASE_PATH 
     : path.join(__dirname, '..', process.env.DATABASE_PATH);
+  console.log(`📂 Используется DATABASE_PATH из .env: ${dbPath}`);
 } else {
   // Иначе используем дефолтные пути
+  const isProduction = process.env.NODE_ENV === 'production';
   const dbDir = isProduction ? '/app/data' : path.join(__dirname, '..');
   dbPath = path.join(dbDir, 'parrot_shop.db');
+  console.log(`📂 Используется дефолтный путь (${isProduction ? 'production' : 'development'}): ${dbPath}`);
 }
 
 const dbDir = path.dirname(dbPath);
