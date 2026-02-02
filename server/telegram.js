@@ -205,10 +205,17 @@ async function confirmOrder(chatId, messageId, orderId, queryId) {
   try {
     console.log('🔄 Подтверждение заказа:', { chatId, orderId });
     
-    // Получаем информацию о пользователе из callback query
-    const chat = await bot.getChat(chatId);
-    const telegramUsername = chat.username || null;
+    // Получаем username из query (если есть)
     const telegramUserId = String(chatId);
+    let telegramUsername = null;
+    
+    try {
+      const chat = await bot.getChat(chatId);
+      telegramUsername = chat.username || null;
+      console.log('👤 Telegram username:', telegramUsername);
+    } catch (error) {
+      console.log('⚠️ Не удалось получить username, продолжаем без него');
+    }
     
     console.log('👤 Telegram данные:', { username: telegramUsername, userId: telegramUserId });
     
@@ -217,6 +224,12 @@ async function confirmOrder(chatId, messageId, orderId, queryId) {
       'UPDATE orders SET status = ?, telegram_username = ?, telegram_user_id = ? WHERE id = ?'
     ).run('confirmed', telegramUsername, telegramUserId, orderId);
     console.log('📝 Обновлено строк:', result.changes);
+    
+    if (result.changes === 0) {
+      console.error('❌ Заказ не найден или не обновлен:', orderId);
+      await bot.answerCallbackQuery(queryId, { text: 'Заказ не найден' });
+      return;
+    }
     
     // Получаем информацию о заказе
     const order = db.prepare('SELECT order_number FROM orders WHERE id = ?').get(orderId);
@@ -233,15 +246,19 @@ async function confirmOrder(chatId, messageId, orderId, queryId) {
     const managerChatId = process.env.TELEGRAM_CHAT_ID;
     console.log('👤 Chat ID клиента:', chatId, 'Chat ID менеджера:', managerChatId);
     
-    if (String(chatId) !== String(managerChatId)) {
-      let managerMessage = `✅ <b>Заказ подтвержден клиентом!</b>\n\n📋 Заказ: ${order.order_number}`;
-      if (telegramUsername) {
-        managerMessage += `\n👤 Telegram: @${telegramUsername}`;
+    if (managerChatId && String(chatId) !== String(managerChatId)) {
+      try {
+        let managerMessage = `✅ <b>Заказ подтвержден клиентом!</b>\n\n📋 Заказ: ${order.order_number}`;
+        if (telegramUsername) {
+          managerMessage += `\n👤 Telegram: @${telegramUsername}`;
+        }
+        managerMessage += `\n🆔 User ID: ${telegramUserId}`;
+        
+        await bot.sendMessage(managerChatId, managerMessage, { parse_mode: 'HTML' });
+        console.log('✅ Уведомление отправлено менеджеру');
+      } catch (error) {
+        console.error('⚠️ Не удалось отправить уведомление менеджеру:', error.message);
       }
-      managerMessage += `\n🆔 User ID: ${telegramUserId}`;
-      
-      await bot.sendMessage(managerChatId, managerMessage, { parse_mode: 'HTML' });
-      console.log('✅ Уведомление отправлено менеджеру');
     }
     
     // Обновляем сообщение
@@ -263,7 +280,12 @@ async function confirmOrder(chatId, messageId, orderId, queryId) {
     
   } catch (error) {
     console.error('❌ Ошибка при подтверждении заказа:', error);
-    await bot.answerCallbackQuery(queryId, { text: 'Ошибка. Попробуйте позже.' });
+    console.error('Stack trace:', error.stack);
+    try {
+      await bot.answerCallbackQuery(queryId, { text: 'Ошибка. Попробуйте позже.' });
+    } catch (e) {
+      console.error('❌ Не удалось ответить на callback:', e.message);
+    }
   }
 }
 
@@ -278,6 +300,12 @@ async function cancelOrderRequest(chatId, messageId, orderId, queryId) {
     const result = db.prepare('UPDATE orders SET status = ? WHERE id = ?').run('cancelled', orderId);
     console.log('📝 Обновлено строк:', result.changes);
     
+    if (result.changes === 0) {
+      console.error('❌ Заказ не найден или не обновлен:', orderId);
+      await bot.answerCallbackQuery(queryId, { text: 'Заказ не найден' });
+      return;
+    }
+    
     // Получаем информацию о заказе
     const order = db.prepare('SELECT order_number FROM orders WHERE id = ?').get(orderId);
     
@@ -289,10 +317,14 @@ async function cancelOrderRequest(chatId, messageId, orderId, queryId) {
     
     // Отправляем уведомление менеджеру
     const managerChatId = process.env.TELEGRAM_CHAT_ID;
-    if (String(chatId) !== String(managerChatId)) {
-      const managerMessage = `❌ <b>Заказ отменен клиентом</b>\n\n📋 Заказ: ${order.order_number}`;
-      await bot.sendMessage(managerChatId, managerMessage, { parse_mode: 'HTML' });
-      console.log('✅ Уведомление об отмене отправлено менеджеру');
+    if (managerChatId && String(chatId) !== String(managerChatId)) {
+      try {
+        const managerMessage = `❌ <b>Заказ отменен клиентом</b>\n\n📋 Заказ: ${order.order_number}`;
+        await bot.sendMessage(managerChatId, managerMessage, { parse_mode: 'HTML' });
+        console.log('✅ Уведомление об отмене отправлено менеджеру');
+      } catch (error) {
+        console.error('⚠️ Не удалось отправить уведомление менеджеру:', error.message);
+      }
     }
     
     // Обновляем сообщение
@@ -313,7 +345,12 @@ async function cancelOrderRequest(chatId, messageId, orderId, queryId) {
     
   } catch (error) {
     console.error('❌ Ошибка при отмене заказа:', error);
-    await bot.answerCallbackQuery(queryId, { text: 'Ошибка. Попробуйте позже.' });
+    console.error('Stack trace:', error.stack);
+    try {
+      await bot.answerCallbackQuery(queryId, { text: 'Ошибка. Попробуйте позже.' });
+    } catch (e) {
+      console.error('❌ Не удалось ответить на callback:', e.message);
+    }
   }
 }
 
