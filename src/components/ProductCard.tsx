@@ -64,13 +64,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         
         <CardContent className="p-4">
-          <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground mb-2 text-center sm:text-left">
+          <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground mb-4 text-center sm:text-left">
             {product.name}
           </h3>
-          
-          <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-2 text-center sm:text-left">
-            {product.description}
-          </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-baseline gap-2">

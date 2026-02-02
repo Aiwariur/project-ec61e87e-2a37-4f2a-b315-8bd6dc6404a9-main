@@ -238,7 +238,7 @@ const ProductModal = ({ product, open, onOpenChange }: ProductModalProps) => {
                   size="lg"
                   variant={isInCart ? 'secondary' : 'default'}
                   onClick={handleAddToCart}
-                  className="flex-1 w-full"
+                  className="w-full"
                 >
                   {isInCart ? (
                     <>
@@ -251,9 +251,6 @@ const ProductModal = ({ product, open, onOpenChange }: ProductModalProps) => {
                       Добавить в корзину
                     </>
                   )}
-                </Button>
-                <Button size="lg" variant="outline" className="w-full sm:w-auto" asChild>
-                  <a href="tel:+78001234567">Позвонить</a>
                 </Button>
               </div>
             </div>
