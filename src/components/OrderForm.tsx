@@ -20,8 +20,6 @@ import { z } from 'zod';
 const orderSchema = z.object({
   name: z.string().trim().min(2, 'Имя слишком короткое').max(100, 'Имя слишком длинное'),
   phone: z.string().trim().min(10, 'Введите корректный номер телефона').max(20, 'Номер слишком длинный'),
-  email: z.string().trim().email('Введите корректный email').max(255, 'Email слишком длинный'),
-  address: z.string().trim().min(10, 'Введите полный адрес').max(500, 'Адрес слишком длинный'),
   comment: z.string().trim().max(1000, 'Комментарий слишком длинный').optional(),
   delivery_method: z.enum(['pickup', 'courier', 'russia', 'express'], {
     required_error: 'Выберите способ доставки',
@@ -62,8 +60,6 @@ const OrderForm = ({ children }: OrderFormProps) => {
     const data = {
       name: formData.get('name') as string,
       phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
-      address: formData.get('address') as string,
       comment: formData.get('comment') as string,
       delivery_method: deliveryMethod,
       payment_method: paymentMethod,
@@ -97,9 +93,9 @@ const OrderForm = ({ children }: OrderFormProps) => {
         body: JSON.stringify({
           customer_name: data.name,
           customer_phone: data.phone,
-          customer_email: data.email,
+          customer_email: '',
           delivery_method: deliveryMethodNames[data.delivery_method] || 'Доставка',
-          address: data.address,
+          address: '',
           comment: data.comment,
           payment_method: data.payment_method,
           items: cart.map(item => ({
@@ -142,34 +138,39 @@ const OrderForm = ({ children }: OrderFormProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto p-4 sm:p-6">
-        <DialogHeader>
-          <DialogTitle className="font-serif text-lg sm:text-xl text-center sm:text-left">Оформление заказа</DialogTitle>
-          <DialogDescription className="text-xs sm:text-sm text-center sm:text-left">
-            Заполните форму, и мы свяжемся с вами для подтверждения заказа
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-[500px] h-[90vh] flex flex-col p-0">
+        <div className="p-4 sm:p-6 border-b">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-lg sm:text-xl">Оформление заказа</DialogTitle>
+            <DialogDescription className="text-xs sm:text-sm">
+              Заполните форму, и мы свяжемся с вами для подтверждения заказа
+            </DialogDescription>
+          </DialogHeader>
+        </div>
 
         {/* Order Summary */}
-        <div className="bg-muted/30 rounded-lg p-3 sm:p-4 mb-4">
-          <h4 className="font-medium text-xs sm:text-sm mb-2 text-center sm:text-left">Ваш заказ:</h4>
-          <div className="space-y-1 text-xs sm:text-sm">
-            {cart.map((item) => (
-              <div key={item.id} className="flex justify-between">
-                <span className="text-muted-foreground">
-                  {item.name} × {item.quantity}
-                </span>
-                <span>{formatPrice(item.price * item.quantity)}</span>
-              </div>
-            ))}
-          </div>
-          <div className="border-t border-border mt-2 pt-2 flex justify-between font-semibold text-xs sm:text-sm">
-            <span>Итого:</span>
-            <span className="text-primary">{formatPrice(getTotalPrice())}</span>
+        <div className="px-4 sm:px-6 pt-4">
+          <div className="bg-muted/30 rounded-lg p-3 sm:p-4">
+            <h4 className="font-medium text-xs sm:text-sm mb-2">Ваш заказ:</h4>
+            <div className="space-y-1 text-xs sm:text-sm">
+              {cart.map((item) => (
+                <div key={item.id} className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    {item.name} × {item.quantity}
+                  </span>
+                  <span>{formatPrice(item.price * item.quantity)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-border mt-2 pt-2 flex justify-between font-semibold text-xs sm:text-sm">
+              <span>Итого:</span>
+              <span className="text-primary">{formatPrice(getTotalPrice())}</span>
+            </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-3 sm:space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name" className="text-xs sm:text-sm">Ваше имя *</Label>
             <Input
@@ -196,21 +197,6 @@ const OrderForm = ({ children }: OrderFormProps) => {
             />
             {errors.phone && (
               <p className="text-xs text-destructive">{errors.phone}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-xs sm:text-sm">Email *</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="ivan@example.com"
-              required
-              className={`text-sm ${errors.email ? 'border-destructive' : ''}`}
-            />
-            {errors.email && (
-              <p className="text-xs text-destructive">{errors.email}</p>
             )}
           </div>
 
@@ -248,20 +234,6 @@ const OrderForm = ({ children }: OrderFormProps) => {
             </RadioGroup>
             {errors.delivery_method && (
               <p className="text-xs text-destructive">{errors.delivery_method}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address" className="text-xs sm:text-sm">Адрес доставки *</Label>
-            <Textarea
-              id="address"
-              name="address"
-              placeholder="Город, улица, дом, квартира"
-              required
-              className={`text-sm ${errors.address ? 'border-destructive' : ''}`}
-            />
-            {errors.address && (
-              <p className="text-xs text-destructive">{errors.address}</p>
             )}
           </div>
 
@@ -307,14 +279,18 @@ const OrderForm = ({ children }: OrderFormProps) => {
               <p className="text-xs text-destructive">{errors.payment_method}</p>
             )}
           </div>
+          </div>
 
-          <Button type="submit" size="lg" className="w-full text-sm sm:text-base" disabled={isSubmitting}>
-            {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
-          </Button>
+          {/* Закрепленная кнопка внизу */}
+          <div className="border-t bg-background p-4 sm:p-6 space-y-3">
+            <Button type="submit" size="lg" className="w-full text-sm sm:text-base" disabled={isSubmitting}>
+              {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
+            </Button>
 
-          <p className="text-xs text-muted-foreground text-center">
-            Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-          </p>
+            <p className="text-xs text-muted-foreground text-center">
+              Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+            </p>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

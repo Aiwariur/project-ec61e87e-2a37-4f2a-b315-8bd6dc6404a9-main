@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, MessageCircle } from 'lucide-react';
+import { CheckCircle2, MessageCircle, Home } from 'lucide-react';
 
 const ThankYou = () => {
   const navigate = useNavigate();
@@ -14,11 +14,6 @@ const ThankYou = () => {
       navigate('/', { replace: true });
     }
   }, [orderNumber, navigate]);
-
-  // Ссылка на страницу подтверждения
-  const confirmLink = orderNumber 
-    ? `/confirm-order?order=${orderNumber}`
-    : '/';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
@@ -47,54 +42,61 @@ const ThankYou = () => {
           <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 space-y-4">
             <div className="flex items-start gap-3 text-left">
               <MessageCircle className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <h2 className="font-semibold text-lg text-foreground">
-                  Важная информация о связи
+                  Подтвердите заказ в Telegram
                 </h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  В связи с тем, что в РФ периодически блокируются различные каналы связи через интернет, 
-                  <strong className="text-foreground"> Telegram является единственным стабильным каналом связи</strong> с нашей компанией.
+                  Мы отправили уведомление о вашем заказе в Telegram. 
+                  <strong className="text-foreground"> Пожалуйста, нажмите кнопку "✅ Подтвердить заказ"</strong> в сообщении, 
+                  чтобы мы могли оперативно с вами связаться.
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Пожалуйста, подтвердите ваш заказ в Telegram, чтобы мы могли оперативно с вами связаться 
-                  и обсудить детали доставки.
+                  Telegram — это единственный стабильный канал связи с нашей компанией в РФ. 
+                  После подтверждения мы сможем обсудить детали доставки напрямую.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Кнопка подтверждения */}
-          <div className="space-y-3">
-            <Button
-              size="lg"
-              className="w-full md:w-auto px-8 py-6 text-lg font-semibold"
-              onClick={() => navigate(confirmLink)}
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Подтвердить заказ
-            </Button>
-            <p className="text-xs text-muted-foreground">
-              Нажмите кнопку, чтобы подтвердить ваш заказ
-            </p>
+          {/* Инструкция */}
+          <div className="bg-muted/50 rounded-lg p-6 text-left space-y-3">
+            <h3 className="font-semibold text-foreground">Что делать дальше:</h3>
+            <ol className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex gap-2">
+                <span className="font-semibold text-foreground">1.</span>
+                <span>Откройте Telegram и найдите сообщение от нашего бота</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-semibold text-foreground">2.</span>
+                <span>Нажмите кнопку "✅ Подтвердить заказ"</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-semibold text-foreground">3.</span>
+                <span>Ожидайте сообщения от менеджера для уточнения деталей</span>
+              </li>
+            </ol>
           </div>
 
           {/* Дополнительная информация */}
           <div className="pt-6 border-t border-border space-y-3">
             <p className="text-sm text-muted-foreground">
-              Мы также отправили подтверждение на указанный вами email.
+              Если вы не получили сообщение в Telegram, проверьте настройки приватности 
+              или свяжитесь с нами по телефону.
             </p>
             <p className="text-sm text-muted-foreground">
-              Если у вас возникли вопросы, вы можете связаться с нами через Telegram.
+              Мы также отправили подтверждение на указанный email (если вы его указали).
             </p>
           </div>
 
           {/* Кнопка возврата */}
           <div className="pt-4">
             <Button
-              variant="outline"
               onClick={() => navigate('/')}
               className="w-full md:w-auto"
+              size="lg"
             >
+              <Home className="w-4 h-4 mr-2" />
               Вернуться на главную
             </Button>
           </div>

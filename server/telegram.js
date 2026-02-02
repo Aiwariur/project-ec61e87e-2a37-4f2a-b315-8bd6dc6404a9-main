@@ -6,410 +6,224 @@ dotenv.config();
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.TELEGRAM_CHAT_ID;
+const isProduction = process.env.NODE_ENV === 'production';
+const webhookUrl = process.env.TELEGRAM_WEBHOOK_URL; // Например: https://yourdomain.com/telegram-webhook
 
 let bot = null;
 
 // Инициализация бота
 if (token) {
   try {
-    // Создаем бота БЕЗ polling - будем использовать только для отправки сообщений
-    bot = new TelegramBot(token, { polling: false });
-    console.log('✅ Telegram бот инициализирован (режим отправки сообщений)');
+    if (isProduction && webhookUrl) {
+      // Production: используем webhook
+      bot = new TelegramBot(token, { 
+        webHook: {
+          port: process.env.TELEGRAM_WEBHOOK_PORT || 3001
+        }
+      });
+      
+      // Устанавливаем webhook
+      bot.setWebHook(`${webhookUrl}/telegram-webhook`)
+        .then(() => {
+          console.log('✅ Telegram webhook установлен:', webhookUrl);
+        })
+        .catch(err => {
+          console.error('❌ Ошибка установки webhook:', err.message);
+        });
+      
+    } else {
+      // Development: используем polling
+      bot = new TelegramBot(token, { 
+        polling: {
+          interval: 300,
+          autoStart: true,
+          params: {
+            timeout: 10
+          }
+        }
+      });
+      console.log('✅ Telegram бот запущен (polling mode)');
+    }
+    
+    // Обработка команды /start
+    bot.onText(/\/start/, (msg) => {
+      const chatId = msg.chat.id;
+      bot.sendMessage(chatId, 
+        '🦜 Добро пожаловать в ПопугайМаркет!\n\n' +
+        'Здесь вы будете получать уведомления о ваших заказах.\n\n' +
+        'Ваш Chat ID: ' + chatId
+      );
+    });
+    
+    // Обработка callback-ов от inline кнопок
+    bot.on('callback_query', async (callbackQuery) => {
+      const msg = callbackQuery.message;
+      const data = callbackQuery.data;
+      const userId = callbackQuery.from.id;
+      const username = callbackQuery.from.username;
+      const firstName = callbackQuery.from.first_name;
+      const lastName = callbackQuery.from.last_name;
+      
+      console.log('📩 Получен callback:', data);
+      
+      // Обработка подтверждения заказа
+      if (data.startsWith('confirm_order_')) {
+        const orderNumber = data.replace('confirm_order_', '');
+        
+        try {
+          // Находим заказ в БД
+          const order = db.prepare('SELECT id, status FROM orders WHERE order_number = ?').get(orderNumber);
+          
+          if (!order) {
+            await bot.answerCallbackQuery(callbackQuery.id, {
+              text: '❌ Заказ не найден',
+              show_alert: true
+            });
+            return;
+          }
+          
+          // Проверяем, не подтвержден ли уже
+          if (order.status === 'confirmed') {
+            await bot.answerCallbackQuery(callbackQuery.id, {
+              text: '✅ Заказ уже подтвержден',
+              show_alert: false
+            });
+            return;
+          }
+          
+          // Обновляем заказ
+          db.prepare(`
+            UPDATE orders 
+            SET status = 'confirmed',
+                telegram_username = ?,
+                telegram_user_id = ?
+            WHERE id = ?
+          `).run(username || null, userId.toString(), order.id);
+          
+          // Формируем имя клиента
+          const fullName = [firstName, lastName].filter(Boolean).join(' ') || 'Клиент';
+          
+          // Отвечаем на callback
+          await bot.answerCallbackQuery(callbackQuery.id, {
+            text: '✅ Заказ подтвержден!',
+            show_alert: false
+          });
+          
+          // Обновляем сообщение - убираем кнопку и добавляем статус
+          const originalText = msg.text;
+          const updatedText = originalText + 
+            '\n\n✅ <b>ЗАКАЗ ПОДТВЕРЖДЕН</b>' +
+            '\n👤 Клиент: ' + fullName +
+            (username ? '\n📱 Telegram: @' + username : '') +
+            '\n🆔 User ID: ' + userId;
+          
+          await bot.editMessageText(updatedText, {
+            chat_id: msg.chat.id,
+            message_id: msg.message_id,
+            parse_mode: 'HTML'
+          });
+          
+          // Отправляем уведомление менеджеру
+          await bot.sendMessage(chatId, 
+            '🎉 <b>Заказ подтвержден клиентом!</b>\n\n' +
+            '📋 Номер: ' + orderNumber + '\n' +
+            '👤 Клиент: ' + fullName + '\n' +
+            (username ? '📱 Telegram: @' + username + '\n' : '') +
+            '🆔 User ID: ' + userId + '\n\n' +
+            '💬 Теперь вы можете написать клиенту напрямую в Telegram!',
+            { parse_mode: 'HTML' }
+          );
+          
+          console.log('✅ Заказ подтвержден:', orderNumber);
+          
+        } catch (error) {
+          console.error('❌ Ошибка подтверждения заказа:', error);
+          await bot.answerCallbackQuery(callbackQuery.id, {
+            text: '❌ Ошибка подтверждения',
+            show_alert: true
+          });
+        }
+      }
+    });
+    
+    // Обработка ошибок
+    bot.on('polling_error', (error) => {
+      console.error('⚠️ Telegram polling error:', error.message);
+    });
+    
+    bot.on('webhook_error', (error) => {
+      console.error('⚠️ Telegram webhook error:', error.message);
+    });
     
   } catch (error) {
-    console.error('❌ Ошибка инициализации Telegram бота:', error.message);
+    console.error('❌ Ошибка инициализации Telegram:', error.message);
   }
 } else {
   console.warn('⚠️ TELEGRAM_BOT_TOKEN не найден в .env');
 }
 
 /**
- * Показывает детали заказа и кнопку подтверждения
- */
-async function handleOrderConfirmation(chatId, orderParam) {
-  try {
-    console.log('🔍 handleOrderConfirmation вызван с параметром:', orderParam);
-    
-    // Параметр уже очищен от префикса в обработчике /start
-    const cleanOrderParam = orderParam;
-    console.log('🔍 Ищем заказ по:', cleanOrderParam);
-    
-    // Ищем заказ по order_number или по id
-    let order = db.prepare(`
-      SELECT 
-        o.*,
-        c.name as customer_name,
-        c.phone as customer_phone,
-        c.email as customer_email,
-        c.address as customer_address
-      FROM orders o
-      JOIN customers c ON o.customer_id = c.id
-      WHERE o.order_number = ? OR o.id = ?
-    `).get(cleanOrderParam, cleanOrderParam);
-    
-    console.log('📊 Результат поиска:', order ? `Найден заказ #${order.order_number}` : 'Заказ не найден');
-    
-    if (!order) {
-      // Попробуем найти все заказы для отладки
-      const allOrders = db.prepare('SELECT id, order_number FROM orders ORDER BY id DESC LIMIT 5').all();
-      console.log('📋 Последние 5 заказов в БД:', allOrders);
-      
-      await bot.sendMessage(
-        chatId, 
-        '❌ <b>Заказ не найден</b>\n\n' +
-        'Проверьте ссылку или обратитесь в поддержку.\n\n' +
-        'Возможные причины:\n' +
-        '• Заказ еще не создан в системе\n' +
-        '• Неверная ссылка\n' +
-        '• Технический сбой\n\n' +
-        'Напишите нам, и мы поможем!',
-        { parse_mode: 'HTML' }
-      );
-      return;
-    }
-    
-    // Получаем товары заказа
-    const items = db.prepare(`
-      SELECT oi.*, p.name as product_name
-      FROM order_items oi
-      LEFT JOIN products p ON oi.product_id = p.id
-      WHERE oi.order_id = ?
-    `).all(order.id);
-    
-    // Форматируем сообщение
-    let message = `🦜 <b>Ваш заказ #${order.order_number}</b>\n\n`;
-    message += `👤 <b>Получатель:</b> ${order.customer_name}\n`;
-    message += `📱 <b>Телефон:</b> ${order.customer_phone}\n`;
-    if (order.customer_email) {
-      message += `📧 <b>Email:</b> ${order.customer_email}\n`;
-    }
-    message += `\n📍 <b>Адрес доставки:</b>\n${order.customer_address || 'Не указан'}\n`;
-    
-    const paymentMethodNames = {
-      'sbp': 'СБП (Система быстрых платежей)',
-      'card': 'Оплата картой',
-      'manager': 'Обсудить с менеджером',
-    };
-    message += `\n💳 <b>Способ оплаты:</b> ${paymentMethodNames[order.payment_method] || order.payment_method}\n`;
-    
-    if (order.comment) {
-      message += `\n💬 <b>Комментарий:</b> ${order.comment}\n`;
-    }
-    
-    message += `\n🛒 <b>Товары:</b>\n`;
-    items.forEach((item, index) => {
-      const price = (item.price / 100).toFixed(2);
-      message += `${index + 1}. ${item.product_name || 'Товар'} × ${item.quantity} = ${price}₽\n`;
-    });
-    
-    const total = (order.total / 100).toFixed(2);
-    message += `\n💰 <b>ИТОГО: ${total}₽</b>\n\n`;
-    
-    const statusEmoji = {
-      'new': '🆕 Новый',
-      'confirmed': '✅ Подтвержден',
-      'shipped': '🚚 Отправлен',
-      'delivered': '📦 Доставлен',
-      'cancelled': '❌ Отменен'
-    };
-    message += `📊 <b>Статус:</b> ${statusEmoji[order.status] || order.status}`;
-    
-    // Создаем inline-кнопки
-    const keyboard = {
-      inline_keyboard: []
-    };
-    
-    if (order.status === 'new') {
-      keyboard.inline_keyboard.push([
-        { text: '✅ Подтвердить заказ', callback_data: `confirm_${order.id}` }
-      ]);
-      keyboard.inline_keyboard.push([
-        { text: '❌ Отменить заказ', callback_data: `cancel_${order.id}` }
-      ]);
-    }
-    
-    await bot.sendMessage(chatId, message, {
-      parse_mode: 'HTML',
-      reply_markup: keyboard
-    });
-    
-  } catch (error) {
-    console.error('Ошибка при обработке заказа:', error);
-    await bot.sendMessage(chatId, '❌ Произошла ошибка. Попробуйте позже или свяжитесь с поддержкой.');
-  }
-}
-
-/**
- * Подтверждает заказ
- */
-async function confirmOrder(chatId, messageId, orderId, queryId) {
-  try {
-    console.log('🔄 Подтверждение заказа:', { chatId, orderId });
-    
-    // Получаем username из query (если есть)
-    const telegramUserId = String(chatId);
-    let telegramUsername = null;
-    
-    try {
-      const chat = await bot.getChat(chatId);
-      telegramUsername = chat.username || null;
-      console.log('👤 Telegram username:', telegramUsername);
-    } catch (error) {
-      console.log('⚠️ Не удалось получить username, продолжаем без него');
-    }
-    
-    console.log('👤 Telegram данные:', { username: telegramUsername, userId: telegramUserId });
-    
-    // Обновляем статус заказа и сохраняем Telegram данные
-    const result = db.prepare(
-      'UPDATE orders SET status = ?, telegram_username = ?, telegram_user_id = ? WHERE id = ?'
-    ).run('confirmed', telegramUsername, telegramUserId, orderId);
-    console.log('📝 Обновлено строк:', result.changes);
-    
-    if (result.changes === 0) {
-      console.error('❌ Заказ не найден или не обновлен:', orderId);
-      await bot.answerCallbackQuery(queryId, { text: 'Заказ не найден' });
-      return;
-    }
-    
-    // Получаем информацию о заказе
-    const order = db.prepare('SELECT order_number FROM orders WHERE id = ?').get(orderId);
-    
-    if (!order) {
-      console.error('❌ Заказ не найден:', orderId);
-      await bot.answerCallbackQuery(queryId, { text: 'Заказ не найден' });
-      return;
-    }
-    
-    console.log('📋 Заказ найден:', order.order_number);
-    
-    // Отправляем уведомление менеджеру
-    const managerChatId = process.env.TELEGRAM_CHAT_ID;
-    console.log('👤 Chat ID клиента:', chatId, 'Chat ID менеджера:', managerChatId);
-    
-    if (managerChatId && String(chatId) !== String(managerChatId)) {
-      try {
-        let managerMessage = `✅ <b>Заказ подтвержден клиентом!</b>\n\n📋 Заказ: ${order.order_number}`;
-        if (telegramUsername) {
-          managerMessage += `\n👤 Telegram: @${telegramUsername}`;
-        }
-        managerMessage += `\n🆔 User ID: ${telegramUserId}`;
-        
-        await bot.sendMessage(managerChatId, managerMessage, { parse_mode: 'HTML' });
-        console.log('✅ Уведомление отправлено менеджеру');
-      } catch (error) {
-        console.error('⚠️ Не удалось отправить уведомление менеджеру:', error.message);
-      }
-    }
-    
-    // Обновляем сообщение
-    const confirmMessage = 
-      `✅ <b>Заказ подтвержден!</b>\n\n` +
-      `Спасибо! Ваш заказ #${order.order_number} подтвержден.\n\n` +
-      `Мы свяжемся с вами в ближайшее время для уточнения деталей доставки.\n\n` +
-      `Если у вас есть вопросы, напишите нам в этом чате.`;
-    
-    await bot.editMessageText(confirmMessage, {
-      chat_id: chatId,
-      message_id: messageId,
-      parse_mode: 'HTML'
-    });
-    
-    // Отвечаем на callback query
-    await bot.answerCallbackQuery(queryId, { text: 'Заказ подтвержден!' });
-    console.log('✅ Заказ успешно подтвержден');
-    
-  } catch (error) {
-    console.error('❌ Ошибка при подтверждении заказа:', error);
-    console.error('Stack trace:', error.stack);
-    try {
-      await bot.answerCallbackQuery(queryId, { text: 'Ошибка. Попробуйте позже.' });
-    } catch (e) {
-      console.error('❌ Не удалось ответить на callback:', e.message);
-    }
-  }
-}
-
-/**
- * Обрабатывает запрос на отмену заказа
- */
-async function cancelOrderRequest(chatId, messageId, orderId, queryId) {
-  try {
-    console.log('🔄 Отмена заказа:', { chatId, orderId });
-    
-    // Обновляем статус заказа
-    const result = db.prepare('UPDATE orders SET status = ? WHERE id = ?').run('cancelled', orderId);
-    console.log('📝 Обновлено строк:', result.changes);
-    
-    if (result.changes === 0) {
-      console.error('❌ Заказ не найден или не обновлен:', orderId);
-      await bot.answerCallbackQuery(queryId, { text: 'Заказ не найден' });
-      return;
-    }
-    
-    // Получаем информацию о заказе
-    const order = db.prepare('SELECT order_number FROM orders WHERE id = ?').get(orderId);
-    
-    if (!order) {
-      console.error('❌ Заказ не найден:', orderId);
-      await bot.answerCallbackQuery(queryId, { text: 'Заказ не найден' });
-      return;
-    }
-    
-    // Отправляем уведомление менеджеру
-    const managerChatId = process.env.TELEGRAM_CHAT_ID;
-    if (managerChatId && String(chatId) !== String(managerChatId)) {
-      try {
-        const managerMessage = `❌ <b>Заказ отменен клиентом</b>\n\n📋 Заказ: ${order.order_number}`;
-        await bot.sendMessage(managerChatId, managerMessage, { parse_mode: 'HTML' });
-        console.log('✅ Уведомление об отмене отправлено менеджеру');
-      } catch (error) {
-        console.error('⚠️ Не удалось отправить уведомление менеджеру:', error.message);
-      }
-    }
-    
-    // Обновляем сообщение
-    const cancelMessage = 
-      `❌ <b>Заказ отменен</b>\n\n` +
-      `Ваш заказ #${order.order_number} отменен.\n\n` +
-      `Если вы передумали или это произошло по ошибке, напишите нам в этом чате, и мы поможем оформить новый заказ.`;
-    
-    await bot.editMessageText(cancelMessage, {
-      chat_id: chatId,
-      message_id: messageId,
-      parse_mode: 'HTML'
-    });
-    
-    // Отвечаем на callback query
-    await bot.answerCallbackQuery(queryId, { text: 'Заказ отменен' });
-    console.log('✅ Заказ успешно отменен');
-    
-  } catch (error) {
-    console.error('❌ Ошибка при отмене заказа:', error);
-    console.error('Stack trace:', error.stack);
-    try {
-      await bot.answerCallbackQuery(queryId, { text: 'Ошибка. Попробуйте позже.' });
-    } catch (e) {
-      console.error('❌ Не удалось ответить на callback:', e.message);
-    }
-  }
-}
-
-/**
- * Форматирует сообщение о новом заказе
- */
-function formatOrderMessage(orderData) {
-  const { order_number, customer_name, customer_phone, customer_email, delivery_method, address, comment, payment_method, items, total } = orderData;
-  
-  // Преобразуем код способа оплаты в читаемый текст
-  const paymentMethodNames = {
-    'sbp': '💳 СБП (Система быстрых платежей)',
-    'card': '💳 Оплата картой',
-    'manager': '💬 Обсудить с менеджером',
-  };
-  
-  let message = `🦜 <b>НОВЫЙ ЗАКАЗ!</b>\n\n`;
-  message += `📋 <b>Номер заказа:</b> ${order_number}\n\n`;
-  
-  message += `👤 <b>Клиент:</b>\n`;
-  message += `   Имя: ${customer_name}\n`;
-  message += `   Телефон: ${customer_phone}\n`;
-  if (customer_email) {
-    message += `   Email: ${customer_email}\n`;
-  }
-  
-  message += `\n📦 <b>Доставка:</b> ${delivery_method || 'Доставка'}\n`;
-  if (address) {
-    message += `📍 <b>Адрес:</b> ${address}\n`;
-  }
-  
-  if (payment_method) {
-    message += `\n${paymentMethodNames[payment_method] || `💰 ${payment_method}`}\n`;
-  }
-  
-  if (comment) {
-    message += `\n💬 <b>Комментарий:</b> ${comment}\n`;
-  }
-  
-  message += `\n🛒 <b>Товары:</b>\n`;
-  items.forEach((item, index) => {
-    // Получаем название товара из базы данных
-    const product = db.prepare('SELECT name FROM products WHERE id = ?').get(item.id);
-    const productName = product ? product.name : 'Товар';
-    const price = (item.price / 100).toFixed(0);
-    
-    message += `   ${index + 1}. ${productName} × ${item.quantity} = ${price}₽\n`;
-  });
-  
-  const totalFormatted = (total / 100).toFixed(0);
-  message += `\n💰 <b>ИТОГО: ${totalFormatted}₽</b>`;
-  
-  return message;
-}
-
-/**
- * Отправляет уведомление о новом заказе в Telegram
+ * Отправляет уведомление о новом заказе с кнопкой подтверждения
  */
 export async function sendOrderNotification(orderData) {
   if (!bot || !chatId) {
-    console.warn('⚠️ Telegram бот не настроен, уведомление не отправлено');
-    return { success: false, error: 'Bot not configured' };
+    console.warn('⚠️ Telegram не настроен');
+    return { success: false, error: 'Telegram не настроен' };
   }
   
   try {
-    const message = formatOrderMessage(orderData);
+    const { order_number, customer_name, customer_phone, customer_email, items, total, delivery_method, comment } = orderData;
     
-    // Создаем inline-кнопку для подтверждения заказа
+    // Формируем сообщение
+    let message = '🦜 <b>НОВЫЙ ЗАКАЗ!</b>\n\n';
+    message += '📋 <b>Номер:</b> ' + order_number + '\n';
+    message += '👤 <b>Клиент:</b> ' + customer_name + '\n';
+    message += '📱 <b>Телефон:</b> ' + customer_phone + '\n';
+    if (customer_email) {
+      message += '📧 <b>Email:</b> ' + customer_email + '\n';
+    }
+    message += '🚚 <b>Доставка:</b> ' + (delivery_method || 'Не указана') + '\n';
+    
+    if (comment) {
+      message += '💬 <b>Комментарий:</b> ' + comment + '\n';
+    }
+    
+    message += '\n🛒 <b>Товары:</b>\n';
+    
+    // Добавляем товары
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const product = db.prepare('SELECT name FROM products WHERE id = ?').get(item.id);
+      const name = product ? product.name : 'Товар';
+      const price = (item.price / 100).toFixed(0);
+      const itemTotal = ((item.price * item.quantity) / 100).toFixed(0);
+      message += (i + 1) + '. ' + name + ' × ' + item.quantity + ' = ' + itemTotal + ' ₽\n';
+    }
+    
+    const totalPrice = (total / 100).toFixed(0);
+    message += '\n💰 <b>ИТОГО: ' + totalPrice + ' ₽</b>';
+    
+    // Inline кнопка для подтверждения
     const keyboard = {
-      inline_keyboard: [
-        [
-          { 
-            text: '✅ Подтвердить заказ', 
-            callback_data: `confirm_${orderData.orderId}` 
-          }
-        ],
-        [
-          { 
-            text: '❌ Отменить заказ', 
-            callback_data: `cancel_${orderData.orderId}` 
-          }
-        ]
-      ]
+      inline_keyboard: [[
+        {
+          text: '✅ Подтвердить заказ',
+          callback_data: 'confirm_order_' + order_number
+        }
+      ]]
     };
     
+    // Отправляем сообщение
     await bot.sendMessage(chatId, message, {
       parse_mode: 'HTML',
-      disable_web_page_preview: true,
       reply_markup: keyboard
     });
     
-    console.log('✅ Уведомление отправлено в Telegram с кнопками подтверждения');
+    console.log('✅ Уведомление о заказе отправлено:', order_number);
     return { success: true };
-  } catch (error) {
-    console.error('❌ Ошибка отправки в Telegram:', error.message);
-    return { success: false, error: error.message };
-  }
-}
-
-/**
- * Отправляет общее уведомление в Telegram
- */
-export async function sendTelegramNotification(message) {
-  if (!bot || !chatId) {
-    console.warn('⚠️ Telegram бот не настроен, уведомление не отправлено');
-    return { success: false, error: 'Bot not configured' };
-  }
-  
-  try {
-    await bot.sendMessage(chatId, message, {
-      parse_mode: 'HTML',
-      disable_web_page_preview: true
-    });
     
-    console.log('✅ Уведомление отправлено в Telegram');
-    return { success: true };
   } catch (error) {
-    console.error('❌ Ошибка отправки в Telegram:', error.message);
+    console.error('❌ Ошибка отправки уведомления:', error.message);
     return { success: false, error: error.message };
   }
 }
@@ -419,18 +233,10 @@ export async function sendTelegramNotification(message) {
  */
 export async function sendStatusUpdateNotification(orderNumber, oldStatus, newStatus) {
   if (!bot || !chatId) {
-    return { success: false, error: 'Bot not configured' };
+    return { success: false };
   }
   
   try {
-    const statusEmoji = {
-      'new': '🆕',
-      'confirmed': '✅',
-      'shipped': '🚚',
-      'delivered': '📦',
-      'cancelled': '❌'
-    };
-    
     const statusNames = {
       'new': 'Новый',
       'confirmed': 'Подтвержден',
@@ -439,21 +245,33 @@ export async function sendStatusUpdateNotification(orderNumber, oldStatus, newSt
       'cancelled': 'Отменен'
     };
     
-    const message = `${statusEmoji[newStatus]} <b>Статус заказа изменен</b>\n\n` +
-                   `📋 Заказ: ${orderNumber}\n` +
-                   `Было: ${statusNames[oldStatus] || oldStatus}\n` +
-                   `Стало: <b>${statusNames[newStatus] || newStatus}</b>`;
+    const message = '📊 <b>Статус заказа изменен</b>\n\n' +
+                   '📋 Заказ: ' + orderNumber + '\n' +
+                   'Было: ' + statusNames[oldStatus] + '\n' +
+                   'Стало: <b>' + statusNames[newStatus] + '</b>';
     
-    await bot.sendMessage(chatId, message, {
-      parse_mode: 'HTML'
-    });
+    await bot.sendMessage(chatId, message, { parse_mode: 'HTML' });
     
-    console.log('✅ Уведомление об изменении статуса отправлено');
+    console.log('✅ Уведомление о статусе отправлено:', orderNumber);
     return { success: true };
+    
   } catch (error) {
     console.error('❌ Ошибка отправки уведомления о статусе:', error.message);
     return { success: false, error: error.message };
   }
+}
+
+/**
+ * Express middleware для обработки webhook
+ */
+export function getTelegramWebhookHandler() {
+  if (!bot) {
+    return (req, res) => res.sendStatus(404);
+  }
+  return (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+  };
 }
 
 export default bot;

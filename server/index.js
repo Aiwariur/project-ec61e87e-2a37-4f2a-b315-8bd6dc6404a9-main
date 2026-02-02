@@ -6,7 +6,7 @@ import productsRouter from './routes/products.js';
 import ordersRouter from './routes/orders.js';
 import contactRouter from './routes/contact.js';
 import reviewsRouter from './routes/reviews.js';
-import './telegram.js'; // Инициализация Telegram бота
+import { getTelegramWebhookHandler } from './telegram.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -19,6 +19,9 @@ app.use(express.json());
 
 // Статические файлы (изображения товаров)
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
+
+// Telegram webhook endpoint
+app.post('/telegram-webhook', getTelegramWebhookHandler());
 
 // API Routes
 app.use('/api/products', productsRouter);
