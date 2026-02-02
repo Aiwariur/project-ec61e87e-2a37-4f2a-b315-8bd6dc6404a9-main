@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import productsRouter from './routes/products.js';
 import ordersRouter from './routes/orders.js';
 import contactRouter from './routes/contact.js';
+import reviewsRouter from './routes/reviews.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -22,6 +23,7 @@ app.use('/images', express.static(path.join(__dirname, '../public/images')));
 app.use('/api/products', productsRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/contact', contactRouter);
+app.use('/api/reviews', reviewsRouter);
 
 // Health check
 app.get('/api/health', (_req, res) => {

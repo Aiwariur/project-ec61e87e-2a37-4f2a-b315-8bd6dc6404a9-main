@@ -5,12 +5,12 @@ const deliveryOptions = [
   {
     icon: MapPin,
     title: 'Самовывоз',
-    description: 'Бесплатно из нашего питомника в Москве',
+    description: 'Бесплатно из нашего питомника в Краснодаре',
     price: 'Бесплатно',
   },
   {
     icon: Truck,
-    title: 'Курьером по Москве',
+    title: 'Курьером по Краснодару',
     description: 'Доставка в день заказа или в удобное время',
     price: 'от 500 ₽',
   },
@@ -24,7 +24,7 @@ const deliveryOptions = [
     icon: Clock,
     title: 'Экспресс-доставка',
     description: 'Срочная доставка авиатранспортом',
-    price: 'от 7 000 ₽',
+    price: 'от 3 500 ₽',
   },
 ];
 

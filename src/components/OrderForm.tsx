@@ -23,6 +23,9 @@ const orderSchema = z.object({
   email: z.string().trim().email('Введите корректный email').max(255, 'Email слишком длинный'),
   address: z.string().trim().min(10, 'Введите полный адрес').max(500, 'Адрес слишком длинный'),
   comment: z.string().trim().max(1000, 'Комментарий слишком длинный').optional(),
+  delivery_method: z.enum(['pickup', 'courier', 'russia', 'express'], {
+    required_error: 'Выберите способ доставки',
+  }),
   payment_method: z.enum(['sbp', 'card', 'manager'], {
     required_error: 'Выберите способ оплаты',
   }),
@@ -37,6 +40,7 @@ const OrderForm = ({ children }: OrderFormProps) => {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [deliveryMethod, setDeliveryMethod] = useState<string>('courier');
   const [paymentMethod, setPaymentMethod] = useState<string>('sbp');
   const cart = useStore((state) => state.cart);
   const getTotalPrice = useStore((state) => state.getTotalPrice);
@@ -61,6 +65,7 @@ const OrderForm = ({ children }: OrderFormProps) => {
       email: formData.get('email') as string,
       address: formData.get('address') as string,
       comment: formData.get('comment') as string,
+      delivery_method: deliveryMethod,
       payment_method: paymentMethod,
     };
 
@@ -78,6 +83,13 @@ const OrderForm = ({ children }: OrderFormProps) => {
 
     setIsSubmitting(true);
 
+    const deliveryMethodNames: Record<string, string> = {
+      pickup: 'Самовывоз',
+      courier: 'Курьером по Краснодару',
+      russia: 'Доставка по России',
+      express: 'Экспресс-доставка',
+    };
+
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -86,7 +98,7 @@ const OrderForm = ({ children }: OrderFormProps) => {
           customer_name: data.name,
           customer_phone: data.phone,
           customer_email: data.email,
-          delivery_method: 'Доставка',
+          delivery_method: deliveryMethodNames[data.delivery_method] || 'Доставка',
           address: data.address,
           comment: data.comment,
           payment_method: data.payment_method,
@@ -199,6 +211,43 @@ const OrderForm = ({ children }: OrderFormProps) => {
             />
             {errors.email && (
               <p className="text-xs text-destructive">{errors.email}</p>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            <Label className="text-xs sm:text-sm">Способ доставки *</Label>
+            <RadioGroup value={deliveryMethod} onValueChange={setDeliveryMethod}>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="pickup" id="pickup" />
+                <Label htmlFor="pickup" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">Самовывоз</div>
+                  <div className="text-xs text-muted-foreground">Бесплатно из нашего питомника в Краснодаре</div>
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="courier" id="courier" />
+                <Label htmlFor="courier" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">Курьером по Краснодару</div>
+                  <div className="text-xs text-muted-foreground">Доставка в день заказа — от 500 ₽</div>
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="russia" id="russia" />
+                <Label htmlFor="russia" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">Доставка по России</div>
+                  <div className="text-xs text-muted-foreground">Специальный контейнер — от 3 000 ₽</div>
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <RadioGroupItem value="express" id="express" />
+                <Label htmlFor="express" className="flex-1 cursor-pointer text-xs sm:text-sm">
+                  <div className="font-medium">Экспресс-доставка</div>
+                  <div className="text-xs text-muted-foreground">Срочная доставка авиатранспортом — от 3 500 ₽</div>
+                </Label>
+              </div>
+            </RadioGroup>
+            {errors.delivery_method && (
+              <p className="text-xs text-destructive">{errors.delivery_method}</p>
             )}
           </div>
 
