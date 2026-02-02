@@ -85,6 +85,10 @@ async function handleOrderConfirmation(chatId, orderParam) {
   try {
     console.log('🔍 Поиск заказа по параметру:', orderParam);
     
+    // Убираем префикс "order_" если он есть
+    const cleanOrderParam = orderParam.replace(/^order_/, '');
+    console.log('🔍 Очищенный параметр:', cleanOrderParam);
+    
     // Ищем заказ по order_number или по id
     let order = db.prepare(`
       SELECT 
@@ -96,7 +100,7 @@ async function handleOrderConfirmation(chatId, orderParam) {
       FROM orders o
       JOIN customers c ON o.customer_id = c.id
       WHERE o.order_number = ? OR o.id = ?
-    `).get(orderParam, orderParam);
+    `).get(cleanOrderParam, cleanOrderParam);
     
     console.log('📊 Результат поиска:', order ? `Найден заказ #${order.order_number}` : 'Заказ не найден');
     
