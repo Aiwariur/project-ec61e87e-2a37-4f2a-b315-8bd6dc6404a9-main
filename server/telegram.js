@@ -29,9 +29,13 @@ if (token) {
       const chatId = msg.chat.id;
       const params = match[1].trim();
       
+      console.log('🔍 /start получен, параметры:', params);
+      
       // Если есть параметр с номером заказа
       if (params) {
+        // Убираем префикс "order_" если он есть
         const orderParam = params.replace(/^order_/, '');
+        console.log('🔍 Параметр после очистки:', orderParam);
         await handleOrderConfirmation(chatId, orderParam);
       } else {
         // Приветственное сообщение
@@ -83,11 +87,11 @@ if (token) {
  */
 async function handleOrderConfirmation(chatId, orderParam) {
   try {
-    console.log('🔍 Поиск заказа по параметру:', orderParam);
+    console.log('🔍 handleOrderConfirmation вызван с параметром:', orderParam);
     
-    // Убираем префикс "order_" если он есть
-    const cleanOrderParam = orderParam.replace(/^order_/, '');
-    console.log('🔍 Очищенный параметр:', cleanOrderParam);
+    // Параметр уже очищен от префикса в обработчике /start
+    const cleanOrderParam = orderParam;
+    console.log('🔍 Ищем заказ по:', cleanOrderParam);
     
     // Ищем заказ по order_number или по id
     let order = db.prepare(`
