@@ -30,7 +30,9 @@ router.get('/', (req, res) => {
       
       return {
         ...order,
-        items
+        items,
+        telegram_username: order.telegram_username,
+        telegram_user_id: order.telegram_user_id
       };
     });
     
@@ -123,6 +125,7 @@ router.post('/', (req, res) => {
     
     // Отправляем уведомление в Telegram
     sendOrderNotification({
+      orderId: result.orderId,
       order_number: result.order_number,
       customer_name,
       customer_phone,

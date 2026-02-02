@@ -54,6 +54,8 @@ db.exec(`
     payment_method TEXT DEFAULT 'Не указан',
     total INTEGER NOT NULL,
     status TEXT DEFAULT 'new',
+    telegram_username TEXT,
+    telegram_user_id TEXT,
     created_at INTEGER NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(id)
   );

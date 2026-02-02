@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2, MessageCircle } from 'lucide-react';
 
 interface OrderItem {
   id: number;
@@ -26,6 +26,8 @@ interface Order {
   comment?: string;
   total: number;
   status: string;
+  telegram_username?: string;
+  telegram_user_id?: string;
   created_at: number;
   items: OrderItem[];
 }
@@ -161,7 +163,28 @@ const Admin = () => {
                       <p className="font-medium">{selectedOrder.customer_email}</p>
                     </div>
                   )}
+                  {selectedOrder.telegram_username && (
+                    <div>
+                      <p className="text-muted-foreground">Telegram</p>
+                      <p className="font-medium">@{selectedOrder.telegram_username}</p>
+                    </div>
+                  )}
                 </div>
+                
+                {/* Telegram Actions */}
+                {selectedOrder.telegram_user_id && (
+                  <div className="mt-4 flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(`https://t.me/${selectedOrder.telegram_username || selectedOrder.telegram_user_id}`, '_blank')}
+                      className="flex items-center gap-2"
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      Написать в Telegram
+                    </Button>
+                  </div>
+                )}
               </div>
 
               {/* Delivery Info */}
@@ -269,6 +292,12 @@ const Admin = () => {
                         <Badge className={getStatusColor(order.status)}>
                           {order.status}
                         </Badge>
+                        {order.telegram_username && (
+                          <Badge variant="outline" className="flex items-center gap-1">
+                            <MessageCircle className="h-3 w-3" />
+                            @{order.telegram_username}
+                          </Badge>
+                        )}
                       </div>
                       <p className="text-sm text-muted-foreground mb-2">
                         {order.customer_name} • {order.customer_phone}
