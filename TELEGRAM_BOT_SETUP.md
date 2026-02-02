@@ -49,6 +49,8 @@
 ```env
 TELEGRAM_BOT_TOKEN=ваш_токен_от_BotFather
 TELEGRAM_CHAT_ID=ваш_chat_id
+APP_URL=https://your-domain.com
+VITE_TELEGRAM_BOT_USERNAME=your_bot_username
 ```
 
 **Как получить CHAT_ID:**
@@ -57,6 +59,11 @@ npm run telegram:get-id
 ```
 
 Затем отправьте любое сообщение вашему боту в Telegram, и в консоли появится ваш CHAT_ID.
+
+**Дополнительно:**
+- `APP_URL` нужен для webhook в production, чтобы Telegram мог доставлять события на сервер.
+- `VITE_TELEGRAM_BOT_USERNAME` используется фронтендом для deep-link на бота (без @).
+- Webhook URL формируется как: `${APP_URL}/api/telegram/webhook/<token>`.
 
 ### 3. Обновите ссылку на бота в коде
 
@@ -77,6 +84,8 @@ const telegramLink = orderNumber
 ```
 
 **Важно:** Замените `parrot_shop_bot` на username вашего бота (без @)
+
+**Примечание:** Этот шаг больше не обязателен, если вы указали `VITE_TELEGRAM_BOT_USERNAME` в `.env`.
 
 ### 4. Запустите сервер
 

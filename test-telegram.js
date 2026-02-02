@@ -1,4 +1,4 @@
-import { sendOrderNotification } from './server/telegram.js';
+import { initTelegram, sendOrderNotification } from './server/telegram.js';
 
 // Тестовые данные заказа
 const testOrder = {
@@ -15,6 +15,10 @@ const testOrder = {
   ],
   total: 155000
 };
+
+// Инициализируем бота для теста (без webhook), чтобы sendOrderNotification мог отправить сообщение.
+// Почему так: в сервере инициализация идет в index.js, а тест запускается отдельно.
+initTelegram();
 
 console.log('🧪 Отправка тестового уведомления в Telegram...\n');
 console.log('Данные заказа:', JSON.stringify(testOrder, null, 2));

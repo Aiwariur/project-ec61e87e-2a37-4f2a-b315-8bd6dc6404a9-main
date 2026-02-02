@@ -4,9 +4,7 @@ import { sendOrderNotification, sendStatusUpdateNotification } from '../telegram
 
 const router = express.Router();
 
-/**
- * Получить все заказы (для админки)
- */
+// Получить все заказы (для админки)
 router.get('/', (req, res) => {
   try {
     const orders = db.prepare(`
@@ -32,35 +30,25 @@ router.get('/', (req, res) => {
       
       return {
         ...order,
-        items
+        items,
+        telegram_username: order.telegram_username,
+        telegram_user_id: order.telegram_user_id
       };
     });
     
     res.json(ordersWithItems);
   } catch (error) {
-    console.error('❌ Ошибка получения заказов:', error);
+    console.error('Get orders error:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-/**
- * Создать новый заказ
- */
-router.post('/', async (req, res) => {
+// Создать заказ
+router.post('/', (req, res) => {
   try {
-    const { 
-      customer_name, 
-      customer_phone, 
-      customer_email, 
-      delivery_method, 
-      address, 
-      comment, 
-      payment_method, 
-      items, 
-      total 
-    } = req.body;
+    const { customer_name, customer_phone, customer_email, delivery_method, address, comment, payment_method, items, total } = req.body;
     
-    // Валидация обязательных полей
+    // Валидация
     if (!customer_name || !customer_phone || !items || items.length === 0 || !total) {
       return res.status(400).json({ 
         error: 'Не заполнены обязательные поля',
@@ -74,16 +62,15 @@ router.post('/', async (req, res) => {
     }
     
     const now = Math.floor(Date.now() / 1000);
-    const order_number = 'ORD-' + Date.now();
     
-    // Транзакция для создания заказа
+    // Начинаем транзакцию
     const createOrder = db.transaction(() => {
-      // 1. Создаем или обновляем клиента
+      // 1. Создаем или находим клиента
       let customer = db.prepare('SELECT id FROM customers WHERE phone = ?').get(customer_phone);
       
       let customerId;
       if (customer) {
-        // Обновляем существующего клиента
+        // Обновляем данные существующего клиента
         db.prepare(`
           UPDATE customers 
           SET name = ?, email = ?, address = ?, updated_at = ?
@@ -100,17 +87,9 @@ router.post('/', async (req, res) => {
       }
       
       // 2. Создаем заказ
+      const order_number = `ORD-${Date.now()}`;
       const orderResult = db.prepare(`
-        INSERT INTO orders (
-          order_number, 
-          customer_id, 
-          delivery_method, 
-          comment, 
-          payment_method, 
-          total, 
-          status, 
-          created_at
-        )
+        INSERT INTO orders (order_number, customer_id, delivery_method, comment, payment_method, total, status, created_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `).run(
         order_number,
@@ -132,8 +111,10 @@ router.post('/', async (req, res) => {
       `);
       
       for (const item of items) {
+        // Получаем название товара из базы
         const product = db.prepare('SELECT name FROM products WHERE id = ?').get(item.id);
         const productName = product ? product.name : 'Товар';
+        
         insertItem.run(orderId, item.id, productName, item.quantity, item.price);
       }
       
@@ -142,10 +123,9 @@ router.post('/', async (req, res) => {
     
     const result = createOrder();
     
-    console.log('✅ Заказ создан:', result.order_number);
-    
-    // Отправляем уведомление в Telegram (асинхронно)
+    // Отправляем уведомление в Telegram
     sendOrderNotification({
+      orderId: result.orderId,
       order_number: result.order_number,
       customer_name,
       customer_phone,
@@ -157,7 +137,7 @@ router.post('/', async (req, res) => {
       items,
       total
     }).catch(err => {
-      console.error('⚠️ Не удалось отправить уведомление в Telegram:', err);
+      console.error('Не удалось отправить уведомление в Telegram:', err);
     });
     
     res.status(201).json({ 
@@ -166,9 +146,8 @@ router.post('/', async (req, res) => {
       order_number: result.order_number,
       message: 'Заказ успешно создан' 
     });
-    
   } catch (error) {
-    console.error('❌ Ошибка создания заказа:', error);
+    console.error('Create order error:', error);
     res.status(500).json({ 
       error: 'Ошибка при создании заказа',
       details: error.message 
@@ -176,9 +155,30 @@ router.post('/', async (req, res) => {
   }
 });
 
-/**
- * Получить заказ по ID
- */
+// Получить заказ по номеру (для статуса подтверждения в Telegram потоке)
+router.get('/by-number/:orderNumber', (req, res) => {
+  try {
+    const { orderNumber } = req.params;
+
+    // Этот маршрут нужен фронтенду, чтобы проверять статус без доступа к ID заказа.
+    const order = db.prepare(`
+      SELECT o.order_number, o.status
+      FROM orders o
+      WHERE o.order_number = ?
+    `).get(orderNumber);
+
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    res.json({ order_number: order.order_number, status: order.status });
+  } catch (error) {
+    console.error('Get order by number error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить заказ по ID
 router.get('/:id', (req, res) => {
   try {
     const order = db.prepare(`
@@ -194,7 +194,7 @@ router.get('/:id', (req, res) => {
     `).get(req.params.id);
     
     if (!order) {
-      return res.status(404).json({ error: 'Заказ не найден' });
+      return res.status(404).json({ error: 'Order not found' });
     }
     
     const items = db.prepare(`
@@ -206,27 +206,25 @@ router.get('/:id', (req, res) => {
     
     res.json({ ...order, items });
   } catch (error) {
-    console.error('❌ Ошибка получения заказа:', error);
+    console.error('Get order error:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-/**
- * Обновить статус заказа (для админки)
- */
-router.patch('/:id', async (req, res) => {
+// Обновить статус заказа (для админки)
+router.patch('/:id', (req, res) => {
   try {
     const { status } = req.body;
     
     if (!status) {
-      return res.status(400).json({ error: 'Статус обязателен' });
+      return res.status(400).json({ error: 'Status is required' });
     }
     
-    // Получаем текущий заказ
+    // Получаем текущий заказ для уведомления
     const order = db.prepare('SELECT order_number, status FROM orders WHERE id = ?').get(req.params.id);
     
     if (!order) {
-      return res.status(404).json({ error: 'Заказ не найден' });
+      return res.status(404).json({ error: 'Order not found' });
     }
     
     const oldStatus = order.status;
@@ -234,22 +232,72 @@ router.patch('/:id', async (req, res) => {
     // Обновляем статус
     db.prepare('UPDATE orders SET status = ? WHERE id = ?').run(status, req.params.id);
     
-    console.log('✅ Статус заказа обновлен:', order.order_number, oldStatus, '->', status);
-    
     // Отправляем уведомление об изменении статуса
     if (oldStatus !== status) {
       sendStatusUpdateNotification(order.order_number, oldStatus, status).catch(err => {
-        console.error('⚠️ Не удалось отправить уведомление о статусе:', err);
+        console.error('Не удалось отправить уведомление о статусе:', err);
       });
     }
     
-    res.json({ 
-      success: true,
-      message: 'Статус заказа обновлен' 
-    });
-    
+    res.json({ message: 'Order updated successfully' });
   } catch (error) {
-    console.error('❌ Ошибка обновления статуса:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Подтвердить заказ через Telegram (новый endpoint)
+router.post('/:orderNumber/confirm', (req, res) => {
+  try {
+    const { orderNumber } = req.params;
+    const { telegram_username, telegram_user_id } = req.body;
+    
+    console.log('🔄 API: Подтверждение заказа', orderNumber);
+    
+    // Ищем заказ
+    const order = db.prepare('SELECT id, status FROM orders WHERE order_number = ?').get(orderNumber);
+    
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    
+    // Если заказ уже подтвержден, возвращаем успех без повторного обновления.
+    if (order.status === 'confirmed') {
+      return res.json({
+        success: true,
+        message: 'Order already confirmed',
+        order_number: orderNumber
+      });
+    }
+
+    if (order.status === 'cancelled') {
+      return res.status(409).json({ error: 'Order is cancelled' });
+    }
+
+    const oldStatus = order.status;
+
+    // Обновляем статус и Telegram данные
+    db.prepare(`
+      UPDATE orders 
+      SET status = 'confirmed', 
+          telegram_username = ?, 
+          telegram_user_id = ? 
+      WHERE id = ?
+    `).run(telegram_username || null, telegram_user_id || null, order.id);
+    
+    console.log('✅ API: Заказ подтвержден', orderNumber);
+    
+    // Уведомляем менеджера только если статус действительно изменился.
+    sendStatusUpdateNotification(orderNumber, oldStatus, 'confirmed').catch(err => {
+      console.error('Не удалось отправить уведомление о статусе:', err);
+    });
+
+    res.json({
+      success: true,
+      message: 'Order confirmed successfully',
+      order_number: orderNumber
+    });
+  } catch (error) {
+    console.error('❌ API: Ошибка подтверждения:', error);
     res.status(500).json({ error: error.message });
   }
 });
