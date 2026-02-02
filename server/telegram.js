@@ -93,6 +93,10 @@ async function handleOrderConfirmation(chatId, orderParam) {
     const cleanOrderParam = orderParam;
     console.log('🔍 Ищем заказ по:', cleanOrderParam);
     
+    // Проверяем это число (ID) или строка (order_number)
+    const isNumeric = /^\d+$/.test(cleanOrderParam);
+    console.log('🔍 Параметр числовой?', isNumeric);
+    
     // Ищем заказ по order_number или по id
     let order = db.prepare(`
       SELECT 
@@ -104,7 +108,7 @@ async function handleOrderConfirmation(chatId, orderParam) {
       FROM orders o
       JOIN customers c ON o.customer_id = c.id
       WHERE o.order_number = ? OR o.id = ?
-    `).get(cleanOrderParam, cleanOrderParam);
+    `).get(cleanOrderParam, isNumeric ? parseInt(cleanOrderParam) : null);
     
     console.log('📊 Результат поиска:', order ? `Найден заказ #${order.order_number}` : 'Заказ не найден');
     
