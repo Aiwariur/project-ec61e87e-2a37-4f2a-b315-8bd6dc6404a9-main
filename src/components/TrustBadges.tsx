@@ -1,4 +1,4 @@
-import { Star, MapPin, MessageCircle, ThumbsUp } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 const TrustBadges = () => {
   const platforms = [
@@ -6,32 +6,49 @@ const TrustBadges = () => {
       name: 'Яндекс Карты',
       rating: 4.9,
       reviews: 1847,
-      color: 'from-red-500 to-yellow-500',
-      icon: MapPin,
+      logo: (
+        <svg viewBox="0 0 48 48" className="w-8 h-8">
+          <path fill="#FF0000" d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4z"/>
+          <path fill="#FFFFFF" d="M24 10c-5.52 0-10 4.48-10 10 0 7.5 10 18 10 18s10-10.5 10-18c0-5.52-4.48-10-10-10zm0 14c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </svg>
+      ),
       verified: true
     },
     {
       name: '2ГИС',
       rating: 4.8,
       reviews: 1234,
-      color: 'from-green-500 to-emerald-600',
-      icon: MapPin,
+      logo: (
+        <svg viewBox="0 0 48 48" className="w-8 h-8">
+          <rect fill="#00A650" width="48" height="48" rx="8"/>
+          <text x="24" y="32" fontSize="24" fontWeight="bold" fill="white" textAnchor="middle" fontFamily="Arial">2ГИС</text>
+        </svg>
+      ),
       verified: true
     },
     {
       name: 'Отзовик',
       rating: 4.9,
       reviews: 892,
-      color: 'from-blue-500 to-cyan-500',
-      icon: MessageCircle,
+      logo: (
+        <svg viewBox="0 0 48 48" className="w-8 h-8">
+          <circle fill="#0088CC" cx="24" cy="24" r="20"/>
+          <path fill="#FFFFFF" d="M24 12c-6.63 0-12 5.37-12 12s5.37 12 12 12 12-5.37 12-12-5.37-12-12-12zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+          <circle fill="#FFFFFF" cx="24" cy="24" r="3"/>
+        </svg>
+      ),
       verified: true
     },
     {
       name: 'IRecommend',
       rating: 4.8,
       reviews: 654,
-      color: 'from-purple-500 to-pink-500',
-      icon: ThumbsUp,
+      logo: (
+        <svg viewBox="0 0 48 48" className="w-8 h-8">
+          <rect fill="#7B68EE" width="48" height="48" rx="8"/>
+          <path fill="#FFFFFF" d="M24 14l3.5 10.5h11l-9 6.5 3.5 10.5-9-6.5-9 6.5 3.5-10.5-9-6.5h11z"/>
+        </svg>
+      ),
       verified: true
     }
   ];
@@ -50,21 +67,15 @@ const TrustBadges = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {platforms.map((platform, index) => {
-            const Icon = platform.icon;
             return (
               <div
                 key={index}
                 className="relative group"
               >
-                <div className="absolute inset-0 bg-gradient-to-br opacity-10 group-hover:opacity-20 transition-opacity rounded-2xl blur-xl"
-                  style={{
-                    backgroundImage: `linear-gradient(to bottom right, ${platform.color.split(' ')[1]}, ${platform.color.split(' ')[3]})`
-                  }}
-                />
                 <div className="relative bg-card border-2 border-border rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-primary/50">
                   <div className="flex items-center justify-between mb-3">
-                    <div className={`p-2 rounded-lg bg-gradient-to-br ${platform.color}`}>
-                      <Icon className="w-5 h-5 text-white" />
+                    <div className="flex items-center justify-center">
+                      {platform.logo}
                     </div>
                     {platform.verified && (
                       <div className="flex items-center gap-1 text-xs bg-green-500/10 text-green-600 px-2 py-1 rounded-full">

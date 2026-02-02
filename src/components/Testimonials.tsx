@@ -74,8 +74,8 @@ const Testimonials = () => {
 
   // Дублируем отзывы для бесконечной прокрутки
   const row1 = [...testimonials.slice(0, 4), ...testimonials.slice(0, 4)];
-  // Для второй строки разворачиваем массив, чтобы движение было в другую сторону
-  const row2 = [...testimonials.slice(4, 8).reverse(), ...testimonials.slice(4, 8).reverse()];
+  // Для второй строки используем другие отзывы
+  const row2 = [...testimonials.slice(4, 8), ...testimonials.slice(4, 8)];
 
   useEffect(() => {
     const scroll1 = scrollRef1.current;
@@ -98,11 +98,11 @@ const Testimonials = () => {
         scroll1.style.transform = `translateX(-${position1}px)`;
       }
 
-      // Вторая строка движется вправо (обратное направление)
+      // Вторая строка движется вправо
       position2 -= 0.5;
       if (scroll2) {
         const maxScroll = scroll2.scrollWidth / 2;
-        if (position2 <= -maxScroll) {
+        if (Math.abs(position2) >= maxScroll) {
           position2 = 0;
         }
         scroll2.style.transform = `translateX(${position2}px)`;
@@ -160,7 +160,7 @@ const Testimonials = () => {
         </div>
       </div>
 
-      {/* Первая строка - движется вправо */}
+      {/* Первая строка - движется влево */}
       <div className="mb-6 overflow-hidden">
         <div ref={scrollRef1} className="flex" style={{ width: 'fit-content' }}>
           {row1.map((testimonial, index) => (
@@ -169,7 +169,7 @@ const Testimonials = () => {
         </div>
       </div>
 
-      {/* Вторая строка - движется влево */}
+      {/* Вторая строка - движется вправо */}
       <div className="overflow-hidden">
         <div ref={scrollRef2} className="flex" style={{ width: 'fit-content' }}>
           {row2.map((testimonial, index) => (

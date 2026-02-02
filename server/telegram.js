@@ -12,8 +12,8 @@ let bot = null;
 // Инициализация бота с polling для интерактивности
 if (token) {
   try {
-    bot = new TelegramBot(token, { polling: false });
-    console.log('✅ Telegram бот инициализирован (режим webhook/отправка)');
+    bot = new TelegramBot(token, { polling: true });
+    console.log('✅ Telegram бот инициализирован (режим polling)');
     
     // Обработка ошибок polling
     bot.on('polling_error', (error) => {
@@ -105,7 +105,17 @@ async function handleOrderConfirmation(chatId, orderParam) {
       const allOrders = db.prepare('SELECT id, order_number FROM orders ORDER BY id DESC LIMIT 5').all();
       console.log('📋 Последние 5 заказов в БД:', allOrders);
       
-      await bot.sendMessage(chatId, '❌ Заказ не найден. Проверьте ссылку или свяжитесь с поддержкой.');
+      await bot.sendMessage(
+        chatId, 
+        '❌ <b>Заказ не найден</b>\n\n' +
+        'Проверьте ссылку или обратитесь в поддержку.\n\n' +
+        'Возможные причины:\n' +
+        '• Заказ еще не создан в системе\n' +
+        '• Неверная ссылка\n' +
+        '• Технический сбой\n\n' +
+        'Напишите нам, и мы поможем!',
+        { parse_mode: 'HTML' }
+      );
       return;
     }
     
