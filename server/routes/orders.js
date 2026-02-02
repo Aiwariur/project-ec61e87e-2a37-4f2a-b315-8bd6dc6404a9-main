@@ -222,4 +222,41 @@ router.patch('/:id', (req, res) => {
   }
 });
 
+// Подтвердить заказ через Telegram (новый endpoint)
+router.post('/:orderNumber/confirm', (req, res) => {
+  try {
+    const { orderNumber } = req.params;
+    const { telegram_username, telegram_user_id } = req.body;
+    
+    console.log('🔄 API: Подтверждение заказа', orderNumber);
+    
+    // Ищем заказ
+    const order = db.prepare('SELECT id, status FROM orders WHERE order_number = ?').get(orderNumber);
+    
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    
+    // Обновляем статус и Telegram данные
+    db.prepare(`
+      UPDATE orders 
+      SET status = 'confirmed', 
+          telegram_username = ?, 
+          telegram_user_id = ? 
+      WHERE id = ?
+    `).run(telegram_username || null, telegram_user_id || null, order.id);
+    
+    console.log('✅ API: Заказ подтвержден', orderNumber);
+    
+    res.json({ 
+      success: true, 
+      message: 'Order confirmed successfully',
+      order_number: orderNumber
+    });
+  } catch (error) {
+    console.error('❌ API: Ошибка подтверждения:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;

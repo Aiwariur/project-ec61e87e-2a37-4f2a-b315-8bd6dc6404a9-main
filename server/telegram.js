@@ -9,71 +9,12 @@ const chatId = process.env.TELEGRAM_CHAT_ID;
 
 let bot = null;
 
-// Инициализация бота с polling для интерактивности
+// Инициализация бота
 if (token) {
   try {
-    bot = new TelegramBot(token, { polling: true });
-    console.log('✅ Telegram бот инициализирован (режим polling)');
-    
-    // Обработка ошибок polling
-    bot.on('polling_error', (error) => {
-      if (error.code === 'ETELEGRAM' && error.message.includes('409')) {
-        console.error('❌ Конфликт: другой экземпляр бота уже запущен. Остановите другие процессы.');
-      } else {
-        console.error('❌ Ошибка polling:', error.message);
-      }
-    });
-    
-    // Обработка команды /start
-    bot.onText(/\/start(.*)/, async (msg, match) => {
-      const chatId = msg.chat.id;
-      const params = match[1].trim();
-      
-      console.log('🔍 /start получен, параметры:', params);
-      
-      // Если есть параметр с номером заказа
-      if (params) {
-        // Убираем префикс "order_" если он есть
-        const orderParam = params.replace(/^order_/, '');
-        console.log('🔍 Параметр после очистки:', orderParam);
-        await handleOrderConfirmation(chatId, orderParam);
-      } else {
-        // Приветственное сообщение
-        const welcomeMessage = 
-          '🦜 <b>Добро пожаловать в ПопугайМаркет!</b>\n\n' +
-          'Здесь вы можете:\n' +
-          '• Подтвердить свой заказ\n' +
-          '• Получить информацию о доставке\n' +
-          '• Связаться с поддержкой\n\n' +
-          'Для подтверждения заказа перейдите по ссылке из письма или с сайта.';
-        
-        await bot.sendMessage(chatId, welcomeMessage, { parse_mode: 'HTML' });
-      }
-    });
-    
-    // Обработка нажатий на inline-кнопки
-    bot.on('callback_query', async (query) => {
-      console.log('📱 Получен callback:', query.data);
-      
-      const chatId = query.message.chat.id;
-      const messageId = query.message.message_id;
-      const data = query.data;
-      
-      try {
-        if (data.startsWith('confirm_')) {
-          const orderId = data.replace('confirm_', '');
-          console.log('✅ Подтверждение заказа ID:', orderId);
-          await confirmOrder(chatId, messageId, orderId, query.id);
-        } else if (data.startsWith('cancel_')) {
-          const orderId = data.replace('cancel_', '');
-          console.log('❌ Отмена заказа ID:', orderId);
-          await cancelOrderRequest(chatId, messageId, orderId, query.id);
-        }
-      } catch (error) {
-        console.error('❌ Ошибка обработки callback:', error);
-        await bot.answerCallbackQuery(query.id, { text: 'Произошла ошибка' });
-      }
-    });
+    // Создаем бота БЕЗ polling - будем использовать только для отправки сообщений
+    bot = new TelegramBot(token, { polling: false });
+    console.log('✅ Telegram бот инициализирован (режим отправки сообщений)');
     
   } catch (error) {
     console.error('❌ Ошибка инициализации Telegram бота:', error.message);

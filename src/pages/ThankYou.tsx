@@ -15,10 +15,10 @@ const ThankYou = () => {
     }
   }, [orderNumber, navigate]);
 
-  // Ссылка на Telegram с параметром заказа
-  const telegramLink = orderNumber 
-    ? `https://t.me/papugasik_bot?start=order_${orderNumber}`
-    : 'https://t.me/papugasik_bot';
+  // Ссылка на страницу подтверждения
+  const confirmLink = orderNumber 
+    ? `/confirm-order?order=${orderNumber}`
+    : '/';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
@@ -63,18 +63,18 @@ const ThankYou = () => {
             </div>
           </div>
 
-          {/* Кнопка Telegram */}
+          {/* Кнопка подтверждения */}
           <div className="space-y-3">
             <Button
               size="lg"
-              className="w-full md:w-auto px-8 py-6 text-lg font-semibold bg-[#0088cc] hover:bg-[#0077b3] text-white"
-              onClick={() => window.open(telegramLink, '_blank')}
+              className="w-full md:w-auto px-8 py-6 text-lg font-semibold"
+              onClick={() => navigate(confirmLink)}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Подтвердить заказ в Telegram
+              Подтвердить заказ
             </Button>
             <p className="text-xs text-muted-foreground">
-              Нажмите кнопку, чтобы перейти в наш Telegram-бот
+              Нажмите кнопку, чтобы подтвердить ваш заказ
             </p>
           </div>
 
