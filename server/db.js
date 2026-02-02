@@ -98,9 +98,24 @@ db.exec(`
     created_at INTEGER
   );
 
+  CREATE TABLE IF NOT EXISTS visitors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ip_address TEXT NOT NULL,
+    user_agent TEXT,
+    country TEXT,
+    city TEXT,
+    region TEXT,
+    visit_count INTEGER DEFAULT 1,
+    first_visit INTEGER NOT NULL,
+    last_visit INTEGER NOT NULL,
+    referrer TEXT,
+    page_url TEXT
+  );
+
   CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
   CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
   CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
+  CREATE INDEX IF NOT EXISTS idx_visitors_ip ON visitors(ip_address);
 `);
 
 export default db;

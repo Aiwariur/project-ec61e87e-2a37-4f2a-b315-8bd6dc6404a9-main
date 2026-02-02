@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:telegram": "node test-telegram.js",
+    "test:visitors": "node test-visitor-tracking.cjs",
     "telegram:get-id": "node get-chat-id.js",
     "db:migrate": "node migrate-db.js",
     "db:import": "node import-products.js",

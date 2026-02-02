@@ -16,6 +16,7 @@ import {
 import { useStore } from '@/lib/store';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { X } from 'lucide-react';
 
 const orderSchema = z.object({
   name: z.string().trim().min(2, 'Имя слишком короткое').max(100, 'Имя слишком длинное'),
@@ -138,156 +139,154 @@ const OrderForm = ({ children }: OrderFormProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] h-[90vh] flex flex-col p-0">
-        <div className="p-4 sm:p-6 border-b">
-          <DialogHeader>
-            <DialogTitle className="font-serif text-lg sm:text-xl">Оформление заказа</DialogTitle>
-            <DialogDescription className="text-xs sm:text-sm">
-              Заполните форму, и мы свяжемся с вами для подтверждения заказа
+      <DialogContent className="sm:max-w-[500px] max-h-[95vh] flex flex-col p-0 gap-0">
+        {/* Компактный заголовок с кнопкой закрытия */}
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b bg-background sticky top-0 z-10">
+          <div>
+            <DialogTitle className="font-serif text-base sm:text-lg">Оформление заказа</DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground mt-0.5">
+              Сумма: <span className="font-semibold text-foreground">{formatPrice(getTotalPrice())}</span>
             </DialogDescription>
-          </DialogHeader>
-        </div>
-
-        {/* Order Summary */}
-        <div className="px-4 sm:px-6 pt-4">
-          <div className="bg-muted/30 rounded-lg p-3 sm:p-4">
-            <h4 className="font-medium text-xs sm:text-sm mb-2">Ваш заказ:</h4>
-            <div className="space-y-1 text-xs sm:text-sm">
-              {cart.map((item) => (
-                <div key={item.id} className="flex justify-between">
-                  <span className="text-muted-foreground">
-                    {item.name} × {item.quantity}
-                  </span>
-                  <span>{formatPrice(item.price * item.quantity)}</span>
-                </div>
-              ))}
-            </div>
-            <div className="border-t border-border mt-2 pt-2 flex justify-between font-semibold text-xs sm:text-sm">
-              <span>Итого:</span>
-              <span className="text-primary">{formatPrice(getTotalPrice())}</span>
-            </div>
           </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 shrink-0"
+            onClick={() => setOpen(false)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </div>
 
         <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-3 sm:space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-xs sm:text-sm">Ваше имя *</Label>
-            <Input
-              id="name"
-              name="name"
-              placeholder="Иван Иванов"
-              required
-              className={`text-sm ${errors.name ? 'border-destructive' : ''}`}
-            />
-            {errors.name && (
-              <p className="text-xs text-destructive">{errors.name}</p>
-            )}
-          </div>
+          <div className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 space-y-2.5 sm:space-y-3">
+            {/* Компактный список товаров */}
+            <div className="bg-muted/30 rounded p-2 text-xs">
+              <div className="space-y-0.5 max-h-20 overflow-y-auto">
+                {cart.map((item) => (
+                  <div key={item.id} className="flex justify-between text-muted-foreground">
+                    <span>{item.name} ×{item.quantity}</span>
+                    <span className="font-medium">{formatPrice(item.price * item.quantity)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone" className="text-xs sm:text-sm">Телефон *</Label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              placeholder="+7 (999) 123-45-67"
-              required
-              className={`text-sm ${errors.phone ? 'border-destructive' : ''}`}
-            />
-            {errors.phone && (
-              <p className="text-xs text-destructive">{errors.phone}</p>
-            )}
-          </div>
+            {/* Поля ввода */}
+            <div className="space-y-1.5">
+              <Label htmlFor="name" className="text-xs">Имя *</Label>
+              <Input
+                id="name"
+                name="name"
+                placeholder="Иван Иванов"
+                required
+                className={`text-xs h-8 ${errors.name ? 'border-destructive' : ''}`}
+              />
+              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
+            </div>
 
-          <div className="space-y-3">
-            <Label className="text-xs sm:text-sm">Способ доставки *</Label>
-            <RadioGroup value={deliveryMethod} onValueChange={setDeliveryMethod}>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="pickup" id="pickup" />
-                <Label htmlFor="pickup" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">Самовывоз</div>
-                  <div className="text-xs text-muted-foreground">Бесплатно из нашего питомника в Краснодаре</div>
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="courier" id="courier" />
-                <Label htmlFor="courier" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">Курьером по Краснодару</div>
-                  <div className="text-xs text-muted-foreground">Доставка в день заказа — от 500 ₽</div>
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="russia" id="russia" />
-                <Label htmlFor="russia" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">Доставка по России</div>
-                  <div className="text-xs text-muted-foreground">Специальный контейнер — от 3 000 ₽</div>
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="express" id="express" />
-                <Label htmlFor="express" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">Экспресс-доставка</div>
-                  <div className="text-xs text-muted-foreground">Срочная доставка авиатранспортом — от 3 500 ₽</div>
-                </Label>
-              </div>
-            </RadioGroup>
-            {errors.delivery_method && (
-              <p className="text-xs text-destructive">{errors.delivery_method}</p>
-            )}
-          </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="phone" className="text-xs">Телефон *</Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="+7 (999) 123-45-67"
+                required
+                className={`text-xs h-8 ${errors.phone ? 'border-destructive' : ''}`}
+              />
+              {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="comment" className="text-xs sm:text-sm">Комментарий к заказу</Label>
-            <Textarea
-              id="comment"
-              name="comment"
-              placeholder="Дополнительные пожелания..."
-              className={`text-sm ${errors.comment ? 'border-destructive' : ''}`}
-            />
-            {errors.comment && (
-              <p className="text-xs text-destructive">{errors.comment}</p>
-            )}
-          </div>
+            {/* Способ доставки - компактный */}
+            <div className="space-y-1.5">
+              <Label className="text-xs">Доставка *</Label>
+              <RadioGroup value={deliveryMethod} onValueChange={setDeliveryMethod}>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="pickup" id="pickup" className="mt-0.5" />
+                  <Label htmlFor="pickup" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">Самовывоз</div>
+                    <div className="text-muted-foreground">Краснодар</div>
+                  </Label>
+                </div>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="courier" id="courier" className="mt-0.5" />
+                  <Label htmlFor="courier" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">Курьер Краснодар</div>
+                    <div className="text-muted-foreground">от 500 ₽</div>
+                  </Label>
+                </div>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="russia" id="russia" className="mt-0.5" />
+                  <Label htmlFor="russia" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">По России</div>
+                    <div className="text-muted-foreground">от 3 000 ₽</div>
+                  </Label>
+                </div>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="express" id="express" className="mt-0.5" />
+                  <Label htmlFor="express" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">Экспресс</div>
+                    <div className="text-muted-foreground">от 3 500 ₽</div>
+                  </Label>
+                </div>
+              </RadioGroup>
+              {errors.delivery_method && <p className="text-xs text-destructive">{errors.delivery_method}</p>}
+            </div>
 
-          <div className="space-y-3">
-            <Label className="text-xs sm:text-sm">Способ оплаты *</Label>
-            <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="sbp" id="sbp" />
-                <Label htmlFor="sbp" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">СБП (Система быстрых платежей)</div>
-                  <div className="text-xs text-muted-foreground">Мгновенный перевод по номеру телефона</div>
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="card" id="card" />
-                <Label htmlFor="card" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">Оплата картой</div>
-                  <div className="text-xs text-muted-foreground">Visa, MasterCard, МИР</div>
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                <RadioGroupItem value="manager" id="manager" />
-                <Label htmlFor="manager" className="flex-1 cursor-pointer text-xs sm:text-sm">
-                  <div className="font-medium">Обсудить с менеджером</div>
-                  <div className="text-xs text-muted-foreground">Мы свяжемся и обсудим удобный способ оплаты</div>
-                </Label>
-              </div>
-            </RadioGroup>
-            {errors.payment_method && (
-              <p className="text-xs text-destructive">{errors.payment_method}</p>
-            )}
-          </div>
+            {/* Комментарий - компактный */}
+            <div className="space-y-1.5">
+              <Label htmlFor="comment" className="text-xs">Комментарий</Label>
+              <Textarea
+                id="comment"
+                name="comment"
+                placeholder="Пожелания..."
+                className={`text-xs h-16 resize-none ${errors.comment ? 'border-destructive' : ''}`}
+              />
+              {errors.comment && <p className="text-xs text-destructive">{errors.comment}</p>}
+            </div>
+
+            {/* Способ оплаты - компактный */}
+            <div className="space-y-1.5">
+              <Label className="text-xs">Оплата *</Label>
+              <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="sbp" id="sbp" className="mt-0.5" />
+                  <Label htmlFor="sbp" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">СБП</div>
+                    <div className="text-muted-foreground">По номеру телефона</div>
+                  </Label>
+                </div>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="card" id="card" className="mt-0.5" />
+                  <Label htmlFor="card" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">Карта</div>
+                    <div className="text-muted-foreground">Visa, MasterCard, МИР</div>
+                  </Label>
+                </div>
+                <div className="flex items-start space-x-2 p-2 border rounded hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="manager" id="manager" className="mt-0.5" />
+                  <Label htmlFor="manager" className="flex-1 cursor-pointer text-xs leading-tight">
+                    <div className="font-medium">С менеджером</div>
+                    <div className="text-muted-foreground">Обсудим способ</div>
+                  </Label>
+                </div>
+              </RadioGroup>
+              {errors.payment_method && <p className="text-xs text-destructive">{errors.payment_method}</p>}
+            </div>
           </div>
 
           {/* Закрепленная кнопка внизу */}
-          <div className="border-t bg-background p-4 sm:p-6 space-y-3">
-            <Button type="submit" size="lg" className="w-full text-sm sm:text-base" disabled={isSubmitting}>
+          <div className="border-t bg-background p-3 sm:p-4 space-y-2 sticky bottom-0">
+            <Button 
+              type="submit" 
+              size="sm" 
+              className="w-full text-xs sm:text-sm h-9" 
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
             </Button>
-
-            <p className="text-xs text-muted-foreground text-center">
+            <p className="text-xs text-muted-foreground text-center leading-tight">
               Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
             </p>
           </div>

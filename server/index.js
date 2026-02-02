@@ -6,7 +6,9 @@ import productsRouter from './routes/products.js';
 import ordersRouter from './routes/orders.js';
 import contactRouter from './routes/contact.js';
 import reviewsRouter from './routes/reviews.js';
+import visitorsRouter from './routes/visitors.js';
 import { initTelegram } from './telegram.js'; // Инициализация Telegram бота
+import { trackVisitor } from './middleware/visitor-tracker.js'; // Отслеживание посетителей
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -16,6 +18,9 @@ const isProduction = process.env.NODE_ENV === 'production';
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Отслеживание посетителей (должно быть до статических файлов и роутов)
+app.use(trackVisitor);
 
 // Статические файлы (изображения товаров)
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
@@ -28,6 +33,7 @@ app.use('/api/products', productsRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/contact', contactRouter);
 app.use('/api/reviews', reviewsRouter);
+app.use('/api/visitors', visitorsRouter);
 
 // Health check
 app.get('/api/health', (_req, res) => {

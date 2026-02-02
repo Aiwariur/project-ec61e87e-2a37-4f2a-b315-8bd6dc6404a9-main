@@ -130,6 +130,105 @@ export async function sendTelegramNotification(message, options = {}) {
 }
 
 /**
+ * Отправляет уведомление о посетителе сайта
+ */
+export async function sendVisitorNotification(visitorData) {
+  if (!bot || !chatId) {
+    return { success: false };
+  }
+
+  try {
+    const {
+      ip,
+      country,
+      city,
+      region,
+      visitCount,
+      isNewVisitor,
+      referrer,
+      pageUrl,
+      userAgent
+    } = visitorData;
+
+    // Определяем эмодзи в зависимости от количества визитов
+    let emoji = '👤';
+    if (visitCount === 1) emoji = '🆕';
+    else if (visitCount === 2) emoji = '🔄';
+    else if (visitCount >= 3) emoji = '⭐';
+
+    // Формируем заголовок
+    let title = isNewVisitor 
+      ? '🆕 <b>НОВЫЙ ПОСЕТИТЕЛЬ!</b>' 
+      : `🔄 <b>ПОВТОРНЫЙ ВИЗИТ #${visitCount}</b>`;
+
+    // Формируем сообщение
+    let message = `${title}\n\n`;
+    message += `🌍 <b>Локация:</b>\n`;
+    message += `   • Страна: ${country}\n`;
+    message += `   • Город: ${city}\n`;
+    message += `   • Регион: ${region}\n\n`;
+    message += `🔗 <b>IP:</b> <code>${ip}</code>\n`;
+    message += `📄 <b>Страница:</b> ${pageUrl}\n`;
+    
+    if (referrer && referrer !== 'Прямой заход') {
+      message += `🔗 <b>Откуда:</b> ${referrer}\n`;
+    } else {
+      message += `🔗 <b>Откуда:</b> Прямой заход\n`;
+    }
+
+    // Добавляем информацию о браузере (кратко)
+    const browserInfo = extractBrowserInfo(userAgent);
+    if (browserInfo) {
+      message += `💻 <b>Браузер:</b> ${browserInfo}\n`;
+    }
+
+    if (!isNewVisitor) {
+      message += `\n📊 <b>Всего визитов:</b> ${visitCount}`;
+    }
+
+    await bot.sendMessage(chatId, message, { 
+      parse_mode: 'HTML',
+      disable_web_page_preview: true 
+    });
+
+    console.log(`✅ Уведомление о посетителе отправлено (визит #${visitCount})`);
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Ошибка отправки уведомления о посетителе:', error.message);
+    return { success: false };
+  }
+}
+
+/**
+ * Извлекает краткую информацию о браузере из User-Agent
+ */
+function extractBrowserInfo(userAgent) {
+  if (!userAgent) return null;
+
+  // Определяем браузер
+  if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+    return 'Chrome';
+  } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+    return 'Safari';
+  } else if (userAgent.includes('Firefox')) {
+    return 'Firefox';
+  } else if (userAgent.includes('Edg')) {
+    return 'Edge';
+  } else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
+    return 'Opera';
+  }
+
+  // Определяем устройство
+  if (userAgent.includes('Mobile')) {
+    return 'Мобильный браузер';
+  } else if (userAgent.includes('Tablet')) {
+    return 'Планшет';
+  }
+
+  return 'Неизвестный браузер';
+}
+
+/**
  * Отправляет уведомление об изменении статуса
  */
 export async function sendStatusUpdateNotification(orderNumber, oldStatus, newStatus) {
