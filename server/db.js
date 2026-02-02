@@ -5,10 +5,22 @@ import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// В production используем /app/data для персистентного хранения
+// Используем DATABASE_PATH из .env или дефолтный путь
 const isProduction = process.env.NODE_ENV === 'production';
-const dbDir = isProduction ? '/app/data' : path.join(__dirname, '..');
-const dbPath = path.join(dbDir, 'parrot_shop.db');
+let dbPath;
+
+if (process.env.DATABASE_PATH) {
+  // Если указан путь в .env - используем его
+  dbPath = path.isAbsolute(process.env.DATABASE_PATH) 
+    ? process.env.DATABASE_PATH 
+    : path.join(__dirname, '..', process.env.DATABASE_PATH);
+} else {
+  // Иначе используем дефолтные пути
+  const dbDir = isProduction ? '/app/data' : path.join(__dirname, '..');
+  dbPath = path.join(dbDir, 'parrot_shop.db');
+}
+
+const dbDir = path.dirname(dbPath);
 
 // Создаем директорию для БД если её нет
 if (!fs.existsSync(dbDir)) {
@@ -17,6 +29,8 @@ if (!fs.existsSync(dbDir)) {
 
 const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
+
+console.log(`📂 База данных: ${dbPath}`);
 
 // Initialize tables if they don't exist
 db.exec(`
