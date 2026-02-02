@@ -7,7 +7,9 @@ const ThankYou = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const orderNumber = searchParams.get('order');
-  const botUsername = import.meta.env.VITE_TELEGRAM_BOT_USERNAME;
+  
+  // Username бота захардкожен чтобы не зависеть от env переменных при сборке
+  const botUsername = 'papugasik_bot';
 
   useEffect(() => {
     // Если нет номера заказа, редиректим на главную
@@ -16,8 +18,8 @@ const ThankYou = () => {
     }
   }, [orderNumber, navigate]);
 
-  // Ссылка на Telegram бота: подтверждение происходит в чате, а не на сайте.
-  const telegramLink = orderNumber && botUsername
+  // Ссылка на Telegram бота
+  const telegramLink = orderNumber
     ? `https://t.me/${botUsername}?start=order_${orderNumber}`
     : null;
 

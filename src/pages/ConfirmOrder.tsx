@@ -9,8 +9,8 @@ const ConfirmOrder = () => {
   const orderNumber = searchParams.get('order');
   const [status, setStatus] = useState<'loading' | 'waiting' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('');
-  const botUsername = import.meta.env.VITE_TELEGRAM_BOT_USERNAME;
-  const telegramLink = orderNumber && botUsername
+  const botUsername = 'papugasik_bot';
+  const telegramLink = orderNumber
     ? `https://t.me/${botUsername}?start=order_${orderNumber}`
     : null;
 
