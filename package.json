@@ -22,7 +22,8 @@
     "db:test": "node test-order-system.js",
     "setup": "npm run db:migrate && npm run db:import && echo ✅ База данных готова!",
     "deploy:check": "node check-deploy-ready.js",
-    "deploy:prepare": "npm run db:export && npm run build && npm run deploy:check"
+    "deploy:prepare": "npm run db:export && npm run build && npm run deploy:check",
+    "optimize:images": "node optimize-images.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

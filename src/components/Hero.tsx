@@ -10,6 +10,8 @@ const Hero = () => {
         <img
           src={heroImage}
           alt="Красивый попугай"
+          fetchpriority="high"
+          decoding="async"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-transparent" />
