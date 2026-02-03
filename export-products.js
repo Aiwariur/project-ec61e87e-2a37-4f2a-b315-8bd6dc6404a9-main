@@ -23,6 +23,7 @@ try {
     images: p.images ? JSON.parse(p.images) : [],
     description: p.description,
     specs: p.specs ? JSON.parse(p.specs) : {},
+    category: p.category,
     popular: p.popular === 1,
     created_at: p.created_at
   }));

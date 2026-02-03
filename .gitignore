@@ -33,3 +33,5 @@ parrot_shop_backup.db
 *.njsproj
 *.sln
 *.sw?
+
+public/images/products/

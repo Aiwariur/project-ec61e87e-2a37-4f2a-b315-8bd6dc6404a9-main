@@ -22,8 +22,9 @@
         "value": "20%"
       }
     ],
+    "category": "Ара",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 66,
@@ -50,8 +51,9 @@
         "value": "24%"
       }
     ],
+    "category": "Ара",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 67,
@@ -80,8 +82,9 @@
         "value": "30%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 68,
@@ -110,8 +113,9 @@
         "value": "20%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 69,
@@ -136,8 +140,9 @@
         "value": "27%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 70,
@@ -165,8 +170,9 @@
         "value": "22%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 71,
@@ -191,8 +197,9 @@
         "value": "21%"
       }
     ],
+    "category": "Жако",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 72,
@@ -220,8 +227,9 @@
         "value": "25%"
       }
     ],
+    "category": "Эклектус",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 73,
@@ -248,8 +256,9 @@
         "value": "28%"
       }
     ],
+    "category": "Эклектус",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 74,
@@ -274,8 +283,9 @@
         "value": "28%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 75,
@@ -300,8 +310,9 @@
         "value": "24%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 76,
@@ -328,8 +339,9 @@
         "value": "23%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 77,
@@ -357,8 +369,9 @@
         "value": "21%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 78,
@@ -384,8 +397,9 @@
         "value": "23%"
       }
     ],
+    "category": "Корелла",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 79,
@@ -412,8 +426,9 @@
         "value": "29%"
       }
     ],
+    "category": "Королевский",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 80,
@@ -438,8 +453,9 @@
         "value": "23%"
       }
     ],
+    "category": "Сенегальский",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 81,
@@ -465,8 +481,9 @@
         "value": "23%"
       }
     ],
+    "category": "Аратинга",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 82,
@@ -492,8 +509,9 @@
         "value": "21%"
       }
     ],
+    "category": "Лорикет",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 83,
@@ -518,8 +536,9 @@
         "value": "30%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 84,
@@ -545,8 +564,9 @@
         "value": "23%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 85,
@@ -571,8 +591,9 @@
         "value": "26%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 86,
@@ -597,8 +618,9 @@
         "value": "28%"
       }
     ],
+    "category": "Ожереловый",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 87,
@@ -625,8 +647,9 @@
         "value": "29%"
       }
     ],
+    "category": "Королевский",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 88,
@@ -651,8 +674,9 @@
         "value": "21%"
       }
     ],
+    "category": "Пиррура",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 89,
@@ -678,8 +702,9 @@
         "value": "27%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 90,
@@ -704,8 +729,9 @@
         "value": "28%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 91,
@@ -730,8 +756,9 @@
         "value": "28%"
       }
     ],
+    "category": "Ожереловый",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 92,
@@ -756,8 +783,9 @@
         "value": "29%"
       }
     ],
+    "category": "Ара",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 93,
@@ -784,8 +812,9 @@
         "value": "29%"
       }
     ],
+    "category": "Ара",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 94,
@@ -814,8 +843,9 @@
         "value": "21%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 95,
@@ -844,8 +874,9 @@
         "value": "29%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 96,
@@ -870,8 +901,9 @@
         "value": "21%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 97,
@@ -899,8 +931,9 @@
         "value": "27%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 98,
@@ -925,8 +958,9 @@
         "value": "29%"
       }
     ],
+    "category": "Жако",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 99,
@@ -954,8 +988,9 @@
         "value": "29%"
       }
     ],
+    "category": "Эклектус",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 100,
@@ -982,8 +1017,9 @@
         "value": "24%"
       }
     ],
+    "category": "Эклектус",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 101,
@@ -1008,8 +1044,9 @@
         "value": "23%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 102,
@@ -1034,8 +1071,9 @@
         "value": "25%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 103,
@@ -1062,8 +1100,9 @@
         "value": "26%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 104,
@@ -1091,8 +1130,9 @@
         "value": "22%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 105,
@@ -1118,8 +1158,9 @@
         "value": "20%"
       }
     ],
+    "category": "Аратинга",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 106,
@@ -1145,8 +1186,9 @@
         "value": "30%"
       }
     ],
+    "category": "Лорикет",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 107,
@@ -1171,8 +1213,9 @@
         "value": "21%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 108,
@@ -1198,8 +1241,9 @@
         "value": "27%"
       }
     ],
+    "category": "Корелла",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 109,
@@ -1226,8 +1270,9 @@
         "value": "23%"
       }
     ],
+    "category": "Королевский",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 110,
@@ -1252,8 +1297,9 @@
         "value": "27%"
       }
     ],
+    "category": "Сенегальский",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 111,
@@ -1278,8 +1324,9 @@
         "value": "26%"
       }
     ],
+    "category": "Пиррура",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 112,
@@ -1305,8 +1352,9 @@
         "value": "29%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 113,
@@ -1331,8 +1379,9 @@
         "value": "23%"
       }
     ],
+    "category": "Монах",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 114,
@@ -1357,8 +1406,9 @@
         "value": "26%"
       }
     ],
+    "category": "Ожереловый",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 115,
@@ -1383,8 +1433,9 @@
         "value": "27%"
       }
     ],
+    "category": "Ара",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 116,
@@ -1411,8 +1462,9 @@
         "value": "24%"
       }
     ],
+    "category": "Ара",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 117,
@@ -1441,8 +1493,9 @@
         "value": "27%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 118,
@@ -1471,8 +1524,9 @@
         "value": "29%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 119,
@@ -1497,8 +1551,9 @@
         "value": "30%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 120,
@@ -1526,8 +1581,9 @@
         "value": "20%"
       }
     ],
+    "category": "Амазон",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 121,
@@ -1552,8 +1608,9 @@
         "value": "29%"
       }
     ],
+    "category": "Жако",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 122,
@@ -1581,8 +1638,9 @@
         "value": "23%"
       }
     ],
+    "category": "Эклектус",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 123,
@@ -1609,8 +1667,9 @@
         "value": "27%"
       }
     ],
+    "category": "Эклектус",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 124,
@@ -1635,8 +1694,9 @@
         "value": "29%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 125,
@@ -1661,8 +1721,9 @@
         "value": "30%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 126,
@@ -1689,8 +1750,9 @@
         "value": "26%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   },
   {
     "id": 127,
@@ -1718,7 +1780,8 @@
         "value": "22%"
       }
     ],
+    "category": "Какаду",
     "popular": false,
-    "created_at": 1769821908
+    "created_at": 1769910121340
   }
 ]

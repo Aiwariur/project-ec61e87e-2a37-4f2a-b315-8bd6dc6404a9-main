@@ -47,6 +47,7 @@ db.exec(`
     images TEXT,
     description TEXT,
     specs TEXT,
+    category TEXT,
     popular INTEGER DEFAULT 0,
     created_at INTEGER
   );

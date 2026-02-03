@@ -15,7 +15,7 @@ echo ✓ Коммит запушен
 echo.
 
 echo [2/3] Подключаемся к серверу...
-ssh root@144.31.212.184 "cd /var/www/popugai-market && git pull && npm run build && pm2 restart popugai-market"
+ssh root@144.31.212.184 "cd /var/www/popugai-market && git pull && node migrate-add-category.cjs && npm run build && pm2 restart popugai-market"
 if errorlevel 1 (
     echo ОШИБКА: Не удалось развернуть на сервере
     pause

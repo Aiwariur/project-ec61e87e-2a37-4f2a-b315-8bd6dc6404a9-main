@@ -45,8 +45,8 @@ if (checkProducts.count === 0) {
       console.log(`📦 Найдено товаров в JSON: ${productsData.length}`);
       
       const insertProduct = db.prepare(`
-        INSERT INTO products (id, slug, name, price, old_price, in_stock, image, images, description, specs, popular, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO products (id, slug, name, price, old_price, in_stock, image, images, description, specs, category, popular, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
       
       const insertMany = db.transaction((products) => {
@@ -62,6 +62,7 @@ if (checkProducts.count === 0) {
             JSON.stringify(product.images || []),
             product.description || '',
             JSON.stringify(product.specs || {}),
+            product.category || null,
             product.popular ? 1 : 0,
             Date.now()
           );
